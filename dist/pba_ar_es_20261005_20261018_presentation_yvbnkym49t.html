@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Superposición sin sobrecosto | PBA 5–18 octubre 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 438 445' fill='%2300E2CC'%3E%3Cpath d='M437.69,142.18L301.51,5.99c-3.84-3.84-9.05-5.99-14.47-5.99h-132.52c-4.06,0-7.96,1.61-10.84,4.49L4.49,143.68c-2.88,2.87-4.49,6.77-4.49,10.84v120.84c0,11.3,9.16,20.47,20.46,20.47h127.71v-127.19c0-11.3,9.16-20.47,20.47-20.47h106.41c11.3,0,20.47,9.16,20.47,20.47v106.41c0,11.3-9.16,20.47-20.47,20.47l-126.88.49v127.71c0,11.3,9.16,20.47,20.47,20.47l121.15-.31c4,0,7.84-1.590,10.7-4.39l138.58-136.09c2.95-2.880,4.62-6.84,4.62-10.96v-135.77c0-5.43-2.15-10.64-5.99-14.47'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap">
+<style>
+/* ==========================================================================
+   Pipol Deck v3 — presentation design system
+   https://reports.mia.tech/assets/deck/pipol-deck.v3.css
+
+   Pairs with pipol-deck.v3.js, which injects the header pills, icons,
+   decorations and navigation, and toggles [data-mode] on <html>:
+     stage  — fixed 1280x720 slide, scaled to fit (desktop, tablet, laptop)
+     flow   — reflowed vertical scroll of slide cards (phones, narrow windows)
+     print  — every slide laid out one-per-page for PDF export
+
+   What changed from v2 (visual only — markup of v2 components still works):
+     · The official Pipol slide templates ("#02 TAPAS" and the layout set):
+       AQUA IS A SURFACE AGAIN. Covers and section dividers are full Aqua with a
+       white framed title; split slides carry an Aqua side panel; band slides an
+       Aqua header band; KPI tiles and cards can be filled Aqua or MIA blue.
+     · Header on every slide: client LOGO slot top-left, the official
+       "Pipol · Powered by MIA" lockup top-right (colour / white by contrast).
+     · On dark slides, outlined cards, tiles, callouts and tables are white islands.
+     · Headings are heavy UPPERCASE Gabarito; cards are white with thick Aqua
+       outlines, generous radius and soft drop shadows.
+     · New layouts: index, split, band, boxed, closing-as-split.
+     · New components: icon bubbles (built-in icon set), checks, feature list,
+       timeline, funnel, versus, points, pill bar, tag hub, hub, devices
+       (monitor / phone / tv), stat, logo strip, band foot, decorations.
+     · Navigation is a floating pill bottom-right, so Aqua surfaces can bleed
+       to every edge of the slide.
+
+   Built from the Pipol brand guide:
+     · Aqua #00E2CC (RGB 0,226,204) · MIA blue #1D4ED8
+     · Gabarito for everything (bold / medium / normal)
+     · chart colours #00E2CC #43A047 #666666 #29B6F6 #FB8C00 #AB47BC
+       #D32F2F #1D4ED8 #EC407A ("Colores gráficos")
+
+   IMMUTABLE ASSET. Never edit in place once published — publish v4.
+   The Pipol palette is non-negotiable: do not override --primary-*,
+   --secondary-* or the theme tokens in a deck file.
+   No hard-stop gradients anywhere: Chrome prints them as PDF ShadingType 1,
+   which pdf.js viewers (Claude's preview) paint hot pink. Shapes here are
+   real elements and pseudo-elements with flat fills.
+   ========================================================================== */
+
+
+
+:root{
+  /* ---- Pipol palette ---- */
+  --primary-main:#00E2CC;      /* AQUA — surfaces, panels, outlines, data */
+  --primary-dark:#00B4A3;
+  --primary-ink:#00877A;       /* teal for small TEXT on white (4.5:1) */
+  --primary-deep:#007165;
+  --primary-light:#99F3EA;
+  --primary-lighter:#E6FCFA;
+  --secondary-main:#1D4ED8;    /* MIA blue */
+  --navy:#1D3557;
+  --purple:#7A49A5;
+  --steel:#4974A5;
+  --success:#43A047;
+  --error:#D32F2F;
+  --warning:#FB8C00;
+  --pink:#EC407A;
+  --on-aqua:#FFFFFF;           /* type on Aqua / blue surfaces */
+  --on-aqua-2:rgba(255,255,255,.92);
+  --num-on-aqua:#3F3F46;       /* the dark "#02" number on Aqua */
+  --text-on-aqua:#0A0A0A;      /* small dark labels on Aqua bars */
+  --text-primary:#0A0A0A;      /* THEMED */
+  --text-secondary:#374151;    /* THEMED */
+  --text-muted:#6B7280;        /* THEMED */
+  --bg-default:#FFFFFF;
+  --bg-deep:#E9EEEE;           /* letterbox around the stage */
+  --media-bg:#101413;
+
+  /* ---- semantic theme tokens: LIGHT (the default) ---- */
+  --slide-bg:#FFFFFF;
+  --bg-paper:#FFFFFF;          /* cards, tiles, tables */
+  --bg-neutral:#F2FBFA;        /* callouts, tracks */
+  --bg-soft:#EEF3F3;
+  --divider:#E3E8E8;
+  --line-strong:rgba(10,10,10,.22);
+  --card-border:var(--primary-main);
+  --card-shadow:0 10px 26px rgba(15,23,42,.12);
+  --card-shadow-lg:0 16px 40px rgba(15,23,42,.16);
+  --teal-text:var(--primary-ink);
+  --hero-bg:var(--primary-main);
+  --hero-v:#FFFFFF;
+  --hero-l:#FFFFFF;
+  --hero-s:rgba(255,255,255,.92);
+  --warn-bg:#FFF4E5;
+  --ok-bg:#EDF7EE;
+  --risk-bg:#FEF2F2;
+  --halo:#FFFFFF;
+  --tip-bg:rgba(255,255,255,.9);
+  --glow:0 8px 24px rgba(0,226,204,.35);
+  --radius:22px;
+  --radius-sm:14px;
+  --stroke:2.5px;              /* the Aqua outline on cards, pills, rows */
+  --font-head:'Gabarito',system-ui,-apple-system,sans-serif;
+  --font-body:'Gabarito',system-ui,-apple-system,sans-serif;
+
+  /* ---- chart colours ---- */
+  --series-1:#00E2CC;   /* aqua — the client / focus brand */
+  --series-2:#1D4ED8;   /* blue */
+  --series-3:#FB8C00;   /* orange */
+  --series-4:#AB47BC;   /* purple */
+  --series-5:#43A047;   /* green */
+  --series-6:#29B6F6;   /* light blue */
+  --series-7:#EC407A;   /* pink */
+  --series-8:#666666;   /* grey — "others" */
+  --series-9:#D32F2F;   /* red */
+
+  /* ---- stage geometry ---- */
+  --stage-w:1280px;
+  --stage-h:720px;
+  --head-h:54px;        /* header strip: logo slot + Pipol · Powered by MIA lockup */
+  --nav-h:62px;         /* room kept free for the floating navigation pill */
+
+  /* ---- type scale. Overridden in flow mode. ---- */
+  --fs-h1:50px;
+  --fs-h2:36px;
+  --fs-dek:15.5px;
+  --fs-body:13.5px;
+  --fs-kpi:40px;
+  --pad-x:60px;
+  --pad-top:76px;
+  --pad-y:40px;
+}
+
+/* ---- DARK theme: same tokens, re-mapped. Aqua surfaces stay Aqua. ---- */
+.slide[data-theme="dark"]{
+  --slide-bg:#0A0A0A;
+  --text-primary:#FFFFFF;
+  --text-secondary:#C9CED3;
+  --text-muted:#9CA3AF;
+  --bg-paper:#161616;
+  --bg-neutral:#1A2120;
+  --bg-soft:#1E2222;
+  --divider:rgba(255,255,255,.12);
+  --line-strong:rgba(255,255,255,.35);
+  --card-shadow:0 10px 26px rgba(0,0,0,.4);
+  --card-shadow-lg:0 16px 40px rgba(0,0,0,.5);
+  --teal-text:var(--primary-main);
+  --warn-bg:rgba(251,140,0,.14);
+  --ok-bg:rgba(67,160,71,.16);
+  --risk-bg:rgba(211,47,47,.16);
+  --halo:#161616;
+  --tip-bg:rgba(255,255,255,.08);
+}
+
+/* on a dark slide, outlined cards, tiles, callouts and table rows stay WHITE islands
+   (dark type on white) — the contrast the template set asks for. Filled tiles stay filled. */
+.slide[data-theme="dark"] :is(.kpi:not(.hero):not(.fill):not(.blue),.card:not(.fill):not(.blue),.callout,.quote,
+  .chart-card,.media-card,.vs-note,.versus,.tag,.hub-card,.hub-core,.funnel li,.tbl-wrap){
+  --text-primary:#0A0A0A;--text-secondary:#374151;--text-muted:#6B7280;
+  --bg-paper:#FFFFFF;--bg-neutral:#FFFFFF;--bg-soft:#EEF3F3;--divider:#E3E8E8;--line-strong:rgba(10,10,10,.22);
+  --teal-text:#00877A;--warn-bg:#FFFFFF;--ok-bg:#FFFFFF;--risk-bg:#FFFFFF;--halo:#FFFFFF;
+  --card-shadow:0 10px 26px rgba(0,0,0,.45);color:var(--text-primary);
+}
+.slide[data-theme="dark"] .callout{background:#FFFFFF}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font-body);color:var(--text-primary);background:var(--bg-deep);-webkit-text-size-adjust:100%}
+
+/* ==========================================================================
+   1 · STAGE MODE
+   ========================================================================== */
+
+html[data-mode="stage"],html[data-mode="stage"] body{height:100%;overflow:hidden}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{
+  width:var(--stage-w);height:var(--stage-h);position:relative;transform-origin:center center;
+  background:var(--bg-default);border-radius:14px;box-shadow:0 24px 70px rgba(15,23,42,.28);overflow:hidden;
+}
+.slide{
+  position:absolute;inset:0;
+  padding:var(--pad-top) var(--pad-x) var(--nav-h);
+  display:none;flex-direction:column;
+  background:var(--slide-bg);color:var(--text-primary);overflow:hidden;
+  isolation:isolate;   /* decorations and panels (z-index:-1) paint under the content */
+}
+.slide.active{display:flex;animation:pd-fade .32s ease both}
+@keyframes pd-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ==========================================================================
+   2 · HEADER PILLS — injected by the runtime on every slide
+   ========================================================================== */
+
+.pd-head{
+  position:absolute;top:7px;left:18px;right:20px;height:40px;z-index:9;
+  display:flex;align-items:center;justify-content:space-between;pointer-events:none;
+}
+.client-pill{
+  height:36px;min-width:166px;max-width:230px;padding:4px 18px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:#FFFFFF;border:2px solid var(--primary-main);border-radius:999px;
+}
+.client-pill img,.client-pill svg{max-height:24px;max-width:190px;width:auto;display:block}
+/* LOGO placeholder (no data-client-logo yet): the template's "? | LOGO PLACEHOLDER" */
+.client-pill.placeholder{padding:3px 16px 3px 5px;gap:0;justify-content:flex-start}
+.cp-q{
+  width:40px;height:28px;border-radius:14px 3px 3px 14px;background:#8C8C8C;color:#FFFFFF;
+  display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;line-height:1;
+}
+.cp-ph{display:flex;flex-direction:column;align-items:center;padding-left:14px;margin-left:10px;border-left:2px solid var(--primary-main);line-height:1;flex:1}
+.cp-ph b{font-size:15px;font-weight:800;letter-spacing:.04em;color:#9A9A9A}
+.cp-ph small{font-size:6.5px;font-weight:800;letter-spacing:.12em;color:#A8A8A8;margin-top:2px}
+
+/* the official "Pipol · Powered by MIA" lockup, top-right. Colour version on a white
+   ground; white version on Aqua and dark grounds; black when forced (tone-black). */
+.brand-lockup{display:flex;margin-left:auto;height:40px;align-items:center}
+.brand-lockup svg{height:40px;width:auto;display:block}
+.brand-lockup.pipol svg{height:22px}
+.brand-lockup .pw-p,.brand-lockup.pipol svg{fill:#00E2CC;color:#00E2CC}
+.brand-lockup .pw-by{fill:#000000}
+.brand-lockup .pw-m{fill:#1D4ED8}
+.brand-lockup .pw-pill{fill:#FFFFFF;stroke:#1D4ED8}
+.brand-lockup.tone-white .pw-p,.brand-lockup.tone-white .pw-by,.brand-lockup.tone-white .pw-m,
+.slide.band .brand-lockup.tone-auto .pw-p,.slide.band .brand-lockup.tone-auto .pw-by,.slide.band .brand-lockup.tone-auto .pw-m,
+.slide.full-aqua .brand-lockup.tone-auto .pw-p,.slide.full-aqua .brand-lockup.tone-auto .pw-by,.slide.full-aqua .brand-lockup.tone-auto .pw-m,
+.slide[data-theme="dark"] .brand-lockup.tone-auto .pw-p,.slide[data-theme="dark"] .brand-lockup.tone-auto .pw-by,.slide[data-theme="dark"] .brand-lockup.tone-auto .pw-m{fill:#FFFFFF}
+.brand-lockup.pipol.tone-white svg,.slide.band .brand-lockup.pipol.tone-auto svg,.slide[data-theme="dark"] .brand-lockup.pipol.tone-auto svg{fill:#FFFFFF;color:#FFFFFF}
+.slide[data-theme="dark"] .brand-lockup.tone-auto .pw-pill{fill:transparent;stroke:#FFFFFF}
+.brand-lockup.tone-black .pw-p,.brand-lockup.tone-black .pw-by,.brand-lockup.tone-black .pw-m,.brand-lockup.pipol.tone-black svg{fill:#000000;color:#000000}
+.brand-lockup.tone-black .pw-pill{stroke:#000000}
+
+/* ==========================================================================
+   3 · FLOW MODE — phones / narrow windows
+   ========================================================================== */
+
+html[data-mode="flow"]{scroll-behavior:smooth}
+html[data-mode="flow"] body{background:var(--bg-deep);overflow-y:auto}
+html[data-mode="flow"]{
+  --fs-h1:clamp(26px,7.2vw,40px);
+  --fs-h2:clamp(21px,5.8vw,30px);
+  --fs-dek:clamp(13.5px,3.6vw,16px);
+  --fs-body:clamp(13px,3.4vw,15px);
+  --fs-kpi:clamp(24px,6.6vw,34px);
+  --pad-x:clamp(18px,5vw,34px);
+  --pad-top:clamp(64px,14vw,78px);
+  --pad-y:clamp(22px,6vw,34px);
+}
+html[data-mode="flow"] #viewport{position:static;display:block;padding:12px 12px 28px}
+html[data-mode="flow"] #stage{
+  width:100%;height:auto;max-width:820px;margin:0 auto;transform:none!important;
+  background:transparent;box-shadow:none;overflow:visible;display:flex;flex-direction:column;gap:14px;
+}
+html[data-mode="flow"] .slide{
+  position:relative;inset:auto;display:flex!important;animation:none;
+  padding:var(--pad-top) var(--pad-x) var(--pad-y);
+  border-radius:var(--radius);box-shadow:0 10px 30px rgba(15,23,42,.18);scroll-margin-top:64px;
+}
+html[data-mode="flow"] .pd-head{top:12px;left:12px;right:12px;height:28px}
+html[data-mode="flow"] .client-pill{height:30px;min-width:0;padding:3px 12px;max-width:46%}
+html[data-mode="flow"] .client-pill img,html[data-mode="flow"] .client-pill svg{max-height:18px}
+html[data-mode="flow"] .client-pill.placeholder{padding:2px 10px 2px 3px}
+html[data-mode="flow"] .cp-q{width:28px;height:22px;font-size:15px}
+html[data-mode="flow"] .cp-ph{padding-left:8px;margin-left:6px}
+html[data-mode="flow"] .cp-ph b{font-size:11px}
+html[data-mode="flow"] .cp-ph small{display:none}
+html[data-mode="flow"] .brand-lockup{height:30px}
+html[data-mode="flow"] .brand-lockup svg{height:30px}
+html[data-mode="flow"] .brand-lockup.pipol svg{height:16px}
+html[data-mode="flow"] .slide-body{gap:14px}
+html[data-mode="flow"] .deco{display:none}
+
+html[data-mode="flow"] .kpis,html[data-mode="flow"] .kpis-3,html[data-mode="flow"] .kpis-5{grid-template-columns:1fr 1fr}
+html[data-mode="flow"] .cols,html[data-mode="flow"] .cols-3,html[data-mode="flow"] .takeaways,
+html[data-mode="flow"] .media-row,html[data-mode="flow"] .media-row.two,html[data-mode="flow"] .media-row.three,
+html[data-mode="flow"] .hub,html[data-mode="flow"] .tag-hub,html[data-mode="flow"] .versus{grid-template-columns:1fr}
+html[data-mode="flow"] .media-row{flex:0 0 auto}
+html[data-mode="flow"] .media-card video,html[data-mode="flow"] .media-card img{aspect-ratio:16/10;min-height:0;flex:0 0 auto}
+html[data-mode="flow"] .media-row.portrait .media-card video,
+html[data-mode="flow"] .media-row.portrait .media-card img{aspect-ratio:9/16;max-height:70vh;object-fit:contain;background:var(--media-bg)}
+@media (max-width:560px){
+  html[data-mode="flow"] .bar-row{grid-template-columns:1fr;gap:3px;padding-bottom:6px}
+  html[data-mode="flow"] .bar-row .nm{text-align:left}
+  html[data-mode="flow"] .kpis{grid-template-columns:1fr}
+  html[data-mode="flow"] .toc{grid-template-columns:1fr;grid-auto-flow:row}
+}
+html[data-mode="flow"] .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+html[data-mode="flow"] .tbl-wrap table{min-width:520px}
+html[data-mode="flow"] .chart-card svg{width:100%;height:auto}
+
+/* ==========================================================================
+   4 · TYPOGRAPHY & PRIMITIVES
+   ========================================================================== */
+
+.eyebrow{
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--teal-text);margin:0 0 8px;
+}
+.eyebrow::before{content:'';width:26px;height:4px;border-radius:2px;background:var(--primary-main);flex:none}
+h1,h2,h3,h4{font-family:var(--font-head)}
+h2{
+  font-size:var(--fs-h2);line-height:1.04;font-weight:800;margin:0 0 8px;
+  letter-spacing:-.005em;text-transform:uppercase;max-width:30ch;
+}
+h3{text-transform:uppercase}
+/* the sharp half of a claim: Aqua type (display sizes only — never body copy) */
+.accent{color:var(--primary-main)}
+.teal{color:var(--teal-text)}
+.dek{font-size:var(--fs-dek);color:var(--text-secondary);margin:0 0 18px;max-width:100ch;line-height:1.5}
+.slide-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px}
+.slide-body.center{justify-content:center}
+.w-50{width:50%!important}.w-60{width:60%!important}.w-70{width:70%!important}.w-80{width:80%!important}
+.hint{font-size:10.5px;color:var(--text-muted);font-style:italic}
+.footnote{font-size:10.5px;line-height:1.45;color:var(--text-muted);margin-top:auto;padding-top:8px}
+strong{font-weight:800}
+
+/* optional heading wrapper — needed for .band and .boxed slides */
+.slide-head{flex:none}
+.slide-head .dek{margin-bottom:0}
+
+/* ---- BAND slide: Aqua header band behind the heading, full bleed ---- */
+.slide.band .slide-head{
+  margin:calc(var(--pad-top) * -1) calc(var(--pad-x) * -1) 22px;
+  padding:calc(var(--pad-top) + 4px) var(--pad-x) 22px;
+  background:var(--primary-main);color:var(--on-aqua);
+}
+.slide.band .slide-head h2{font-size:calc(var(--fs-h2) * 1.18);color:var(--on-aqua)}
+.slide.band .slide-head .dek,.slide.band .slide-head .eyebrow{color:var(--on-aqua-2)}
+.slide.band .slide-head .eyebrow::before{background:#FFFFFF}
+.slide.band .slide-head .accent{color:var(--num-on-aqua)}
+
+/* ---- BOXED slide: the heading sits in a full-width Aqua-outlined box ---- */
+.slide.boxed .slide-head{
+  margin:calc(var(--pad-top) * -1 + 8px) calc(var(--pad-x) * -1 + 8px) 22px;
+  padding:calc(var(--pad-top) - 12px) calc(var(--pad-x) - 8px) 16px;
+  border:var(--stroke) solid var(--primary-main);
+}
+.slide.boxed .slide-head h2{font-size:calc(var(--fs-h2) * 1.15)}
+
+html[data-mode="flow"] .slide.band .slide-head{margin:calc(var(--pad-top) * -1) calc(var(--pad-x) * -1) 18px;padding:calc(var(--pad-top) + 2px) var(--pad-x) 18px}
+html[data-mode="flow"] .slide.boxed .slide-head{margin:0 0 16px;padding:12px 14px;border-radius:var(--radius-sm)}
+
+/* ==========================================================================
+   5 · COVER & SECTION DIVIDER — full Aqua, white header strip, framed title
+   ========================================================================== */
+
+.cover,.section-divider{
+  background:var(--primary-main);color:var(--on-aqua);
+  padding:var(--head-h) 72px var(--nav-h);
+  justify-content:center;align-items:center;text-align:center;
+}
+/* the white header strip that carries the pills */
+.cover::before,.section-divider::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:var(--head-h);background:#FFFFFF;z-index:-1;
+}
+.cover-inner,.section-divider .inner{display:flex;flex-direction:column;align-items:center;max-width:1040px}
+.cover .eyebrow,.section-divider .n{
+  color:var(--on-aqua);margin-bottom:22px;justify-content:center;
+  font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+}
+.cover .eyebrow::before{background:#FFFFFF}
+/* the framed title: thick white frame, Aqua inside */
+.cover h1,.section-divider h2{
+  margin:0;border:16px solid #FFFFFF;padding:30px 56px;min-width:620px;max-width:980px;
+  font-weight:800;text-transform:uppercase;color:var(--on-aqua);letter-spacing:-.005em;
+}
+.cover h1{font-size:var(--fs-h1);line-height:1.04}
+.section-divider h2{font-size:calc(var(--fs-h2) * 1.05);line-height:1.1}
+.cover h1 .accent,.section-divider h2 .accent,.section-divider h2 .num,.cover h1 .num{color:var(--num-on-aqua)}
+.cover .sub{font-size:calc(var(--fs-dek) * 1.2);font-weight:500;color:var(--on-aqua);margin:24px 0 0;max-width:56ch}
+.section-divider .dek{color:var(--on-aqua);margin:22px 0 0;max-width:60ch;font-size:calc(var(--fs-dek) * 1.1)}
+.cover-meta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.chip{
+  background:transparent;border:2px solid var(--line-strong);color:var(--text-primary);
+  border-radius:999px;padding:6px 15px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+}
+.chip.on{border-color:var(--primary-main);color:var(--teal-text)}
+.cover .chip,.panel .chip{border-color:#FFFFFF;color:#FFFFFF}
+.cover .chip.on,.panel .chip.on{background:#FFFFFF;color:var(--primary-ink)}
+.cover-foot{display:flex;align-items:center;justify-content:center;gap:14px;font-size:12.5px;margin-top:26px;color:var(--on-aqua)}
+.cf-text{font-weight:600;color:inherit}
+.flag{width:30px;border-radius:3px;display:block;flex:none}
+.prepared-for{display:flex;align-items:center;gap:12px;padding-left:18px;border-left:2px solid rgba(255,255,255,.7);color:#FFFFFF}
+.pf-label{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.pf-mark{width:150px;height:auto;display:block}
+/* optional giant number behind a divider */
+.big-n{
+  position:absolute;right:48px;bottom:40px;z-index:1!important;pointer-events:none;
+  font-family:var(--font-head);font-size:220px;font-weight:900;line-height:.8;letter-spacing:-.05em;
+  color:#FFFFFF;opacity:.22;
+}
+html[data-mode="flow"] .cover,html[data-mode="flow"] .section-divider{padding:calc(var(--head-h) + 18px) var(--pad-x) 30px}
+html[data-mode="flow"] .cover::before,html[data-mode="flow"] .section-divider::before{height:52px}
+html[data-mode="flow"] .cover h1,html[data-mode="flow"] .section-divider h2{min-width:0;width:100%;border-width:9px;padding:18px 16px}
+html[data-mode="flow"] .big-n{font-size:110px;right:14px;bottom:10px}
+html[data-mode="flow"] .cover-foot{flex-wrap:wrap}
+html[data-mode="flow"] .prepared-for{border-left:none;padding-left:0}
+
+/* ==========================================================================
+   6 · INDEX — Aqua side panel, numbered two-column table of contents
+   ========================================================================== */
+
+.slide.index{padding-left:calc(236px + 48px)}
+.slide.index::before{content:'';position:absolute;left:0;top:0;bottom:0;width:236px;background:var(--primary-main);z-index:-1}
+.index-label{
+  position:absolute;left:0;top:104px;width:236px;padding-right:28px;text-align:right;
+  font-size:44px;font-weight:800;text-transform:uppercase;color:var(--on-aqua);line-height:1;
+}
+.slide.index .iso{position:absolute;left:-40px;bottom:-60px;width:290px;height:auto;color:#FFFFFF;z-index:1}
+.slide.index h2{font-size:calc(var(--fs-h2) * 1.25);margin:20px 0 26px}
+.toc{
+  list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(var(--rows,5),auto);grid-auto-flow:column;column-gap:56px;
+}
+.toc li{display:grid;grid-template-columns:64px 1fr;align-items:center;min-height:68px}
+.toc li b{font-size:48px;font-weight:600;line-height:1;text-align:center;font-variant-numeric:tabular-nums}
+.toc li span{
+  border-left:5px solid var(--primary-main);padding:6px 0 6px 22px;margin-left:10px;
+  font-size:16px;font-weight:700;line-height:1.3;align-self:stretch;display:flex;align-items:center;
+}
+.toc.rows-3{--rows:3}.toc.rows-4{--rows:4}.toc.rows-6{--rows:6}
+html[data-mode="flow"] .slide.index{padding-left:var(--pad-x)}
+html[data-mode="flow"] .slide.index::before{width:100%;top:54px;height:84px;bottom:auto}   /* keep the header on white, for the lockup's contrast */
+html[data-mode="flow"] .index-label{position:relative;top:auto;left:auto;width:auto;text-align:left;padding:0;margin:0 0 30px;font-size:32px}
+html[data-mode="flow"] .slide.index .iso{display:none}
+html[data-mode="flow"] .toc li b{font-size:34px}
+
+/* ==========================================================================
+   7 · SPLIT — an Aqua panel beside the content (left by default)
+   <section class="slide split"><div class="panel">…</div><div class="main">…</div></section>
+   ========================================================================== */
+
+.slide.split{padding:0;display:none;flex-direction:row}
+.slide.split.active{display:flex}
+.slide.split > .panel{
+  flex:0 0 var(--split-w,40%);margin:var(--head-h) 0 0;border-radius:0 64px 0 0;
+  padding:40px 44px 70px 56px;display:flex;flex-direction:column;justify-content:center;
+}
+.slide.split > .main{flex:1;min-width:0;padding:var(--pad-top) var(--pad-x) var(--nav-h) 48px;display:flex;flex-direction:column}
+.slide.split.right{flex-direction:row-reverse}
+.slide.split.right > .panel{border-radius:64px 0 0 0;padding:40px 56px 70px 44px}
+.slide.split.right > .main{padding:var(--pad-top) 48px var(--nav-h) var(--pad-x)}
+.slide.split.narrow{--split-w:32%}
+.slide.split.half{--split-w:50%}
+.slide.split.flush > .panel{margin-top:0;border-radius:0;padding-top:calc(var(--head-h) + 20px)}
+
+/* the Aqua panel — also usable as a block inside any slide-body */
+.panel{
+  background:var(--primary-main);color:var(--on-aqua);border-radius:var(--radius);padding:22px 26px;
+}
+.panel.blue{background:var(--secondary-main)}
+.slide.split > .panel.top{justify-content:flex-start;padding-top:28px}
+.panel h2{color:var(--on-aqua);font-size:calc(var(--fs-h2) * 1.12)}
+.panel h3{font-size:20px;font-weight:800;line-height:1.2;margin:0 0 12px;color:var(--on-aqua)}
+.panel p,.panel .dek{color:var(--on-aqua-2);font-size:calc(var(--fs-body) * 1.12);line-height:1.6;margin:0 0 12px}
+.panel p:last-child{margin-bottom:0}
+.panel .accent{color:var(--num-on-aqua)}
+.panel.blue .accent{color:var(--primary-main)}
+.panel .eyebrow{color:#FFFFFF}
+.panel .eyebrow::before{background:#FFFFFF}
+.panel .big{font-size:46px;font-weight:800;line-height:1.08;text-transform:uppercase;margin:0;color:#FFFFFF;text-align:center}
+.panel .stat .v,.panel .stat .l{color:#FFFFFF}
+.panel .iso{position:absolute;left:-30px;bottom:-50px;width:250px;height:auto;color:#FFFFFF;opacity:.95;pointer-events:none}
+html[data-mode="flow"] .slide.split,html[data-mode="flow"] .slide.split.right{flex-direction:column;padding:0}
+html[data-mode="flow"] .slide.split > .panel{flex:none;margin:calc(var(--head-h) - 4px) 0 0;border-radius:0 40px 0 0;padding:26px var(--pad-x)}
+html[data-mode="flow"] .slide.split.right > .panel{border-radius:40px 0 0 0}
+html[data-mode="flow"] .slide.split > .main{padding:24px var(--pad-x) var(--pad-y)}
+html[data-mode="flow"] .panel .big{font-size:30px}
+html[data-mode="flow"] .panel .iso{display:none}
+
+/* ==========================================================================
+   8 · KPI TILES
+   ========================================================================== */
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpis.kpis-2{grid-template-columns:repeat(2,1fr)}
+.kpis.kpis-3{grid-template-columns:repeat(3,1fr)}
+.kpis.kpis-5{grid-template-columns:repeat(5,1fr)}
+.kpi{
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:var(--radius);
+  padding:16px 18px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;
+}
+.kpi .v{font-family:var(--font-head);font-size:var(--fs-kpi);font-weight:800;color:var(--text-primary);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.kpi .s{font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.35}
+.kpi .v.up{color:var(--teal-text)}
+.kpi .v.down{color:var(--error)}
+/* filled tiles: the hero is Aqua, .blue is MIA blue — white type, centred */
+.kpi.hero,.kpi.fill,.kpi.blue{background:var(--hero-bg);border-color:transparent;text-align:center;color:#FFFFFF}
+.kpi.blue{background:var(--secondary-main);text-align:left}
+.kpi.hero .v,.kpi.fill .v,.kpi.blue .v,.kpi.hero .v.up,.kpi.fill .v.up{color:#FFFFFF}
+.kpi.hero .l,.kpi.fill .l,.kpi.blue .l{color:#FFFFFF;text-transform:none;letter-spacing:0;font-size:17px}
+.kpi.hero .s,.kpi.fill .s,.kpi.blue .s{color:var(--hero-s)}
+.kpi-cap{font-size:15px;font-weight:800;text-transform:uppercase;text-align:center;margin:0 0 8px;letter-spacing:.02em}
+
+/* inline big stat: "0.51%  Interest increase" */
+.stat{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.stat .v{font-size:54px;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .l{font-size:15px;font-weight:800}
+html[data-mode="flow"] .stat .v{font-size:40px}
+
+/* ==========================================================================
+   9 · CARDS, CALLOUTS, COLUMNS, QUOTES
+   ========================================================================== */
+
+.card{
+  background:var(--bg-paper);border:var(--stroke) solid var(--card-border);border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--card-shadow);
+}
+.card h3{font-size:15px;font-weight:800;margin:0 0 8px;letter-spacing:.01em}
+.card p{margin:0;font-size:var(--fs-body);line-height:1.55;color:var(--text-secondary)}
+.card p strong{color:var(--text-primary)}
+.card.hl{box-shadow:var(--glow)}
+.card.lg{border-width:3px;box-shadow:var(--card-shadow-lg);border-radius:30px;padding:26px 30px}
+.card.fill,.card.blue{background:var(--primary-main);border-color:transparent;color:#FFFFFF}
+.card.blue{background:var(--secondary-main)}
+.card.fill h3,.card.blue h3,.card.fill p,.card.blue p,.card.fill p strong,.card.blue p strong{color:#FFFFFF}
+.card.plain{border-color:var(--divider)}
+
+.callout{
+  border-left:6px solid var(--primary-main);background:var(--bg-neutral);
+  border-radius:var(--radius-sm);padding:13px 18px;font-size:calc(var(--fs-body) * 1.04);
+  line-height:1.55;color:var(--text-secondary);
+}
+.callout strong{color:var(--text-primary)}
+.callout.warn{border-left-color:var(--warning);background:var(--warn-bg)}
+.callout.ok{border-left-color:var(--success);background:var(--ok-bg)}
+.callout.risk{border-left-color:var(--error);background:var(--risk-bg)}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cols.wide-left{grid-template-columns:1.6fr 1fr}
+.cols.wide-right{grid-template-columns:1fr 1.6fr}
+.cols.center{align-items:center}
+.stack{display:flex;flex-direction:column;gap:14px;min-height:0}
+.grow{flex:1;min-height:0}
+
+/* quote / statement card — "OUR DIFFERENTIAL" */
+.quote{
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:var(--radius);
+  padding:22px 28px;box-shadow:var(--card-shadow-lg);position:relative;
+}
+.quote::before{
+  content:'\201D';display:block;font-family:Georgia,serif;font-size:74px;font-weight:700;line-height:.6;
+  height:30px;color:var(--primary-main);margin-bottom:10px;
+}
+.quote p{margin:0;font-size:calc(var(--fs-dek) * 1.1);line-height:1.6;font-weight:700;text-transform:uppercase}
+.quote .who{margin-top:12px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}
+
+/* ==========================================================================
+   10 · ICONS — <span class="icon"><i class="ic" data-i="chart"></i></span>
+   The runtime fills every i.ic[data-i] with an inline SVG (stroke = currentColor).
+   ========================================================================== */
+
+.ic{display:inline-flex;width:1em;height:1em;flex:none;vertical-align:-.14em}
+.ic svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.icon{
+  --sz:56px;width:var(--sz);height:var(--sz);flex:none;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;position:relative;
+  background:var(--bg-paper);border:3px solid var(--primary-main);color:var(--primary-main);
+  font-size:calc(var(--sz) * .46);box-shadow:var(--card-shadow);
+}
+.icon.sm{--sz:40px}
+.icon.lg{--sz:96px;border-width:4px}
+.icon.xl{--sz:140px;border-width:5px}
+.icon.fill{background:var(--primary-main);border-color:var(--primary-main);color:#FFFFFF}
+.icon.blue{background:var(--secondary-main);border-color:var(--secondary-main);color:#FFFFFF}
+.icon.ink{background:#FFFFFF;border-color:#0A0A0A;color:#0A0A0A}
+/* small Aqua check badge on the lower-left of an icon bubble */
+.icon.check::after{
+  content:'';position:absolute;left:-6px;bottom:-6px;width:30px;height:30px;border-radius:50%;
+  background:var(--primary-main);box-shadow:0 0 0 4px var(--bg-paper),var(--card-shadow);
+}
+.icon.check::before{
+  content:'';position:absolute;left:5px;bottom:5px;width:9px;height:5px;z-index:1;
+  border-left:2.5px solid #FFFFFF;border-bottom:2.5px solid #FFFFFF;transform:rotate(-45deg);
+}
+
+/* ==========================================================================
+   11 · LISTS — checks, feature list, points
+   ========================================================================== */
+
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.checks li{display:flex;align-items:center;gap:16px;font-size:16px;font-weight:800;line-height:1.3;position:relative}
+.checks li::before{
+  content:'';width:38px;height:38px;flex:none;border-radius:50%;border:2.5px solid var(--primary-main);
+}
+.checks li::after{
+  content:'';position:absolute;left:13px;top:50%;width:12px;height:6px;margin-top:-5px;
+  border-left:2.5px solid var(--primary-main);border-bottom:2.5px solid var(--primary-main);transform:rotate(-45deg);
+}
+.checks li span{font-weight:500;color:var(--text-secondary)}
+.panel .checks li::before{border-color:#FFFFFF}
+.panel .checks li::after{border-color:#FFFFFF}
+
+.feature-list{display:flex;flex-direction:column;gap:20px}
+.feat{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.feat .icon{--sz:104px;border-width:4px;font-size:38px;color:var(--navy)}
+.feat h4{margin:0 0 6px;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.feat p{margin:0;font-size:var(--fs-body);line-height:1.55;color:var(--text-secondary)}
+.feature-list.compact .feat .icon{--sz:72px;font-size:28px}
+.feature-list.compact{gap:14px}
+
+.points{display:flex;flex-direction:column;gap:14px}
+.point{border-bottom:1.5px solid var(--line-strong);padding-bottom:12px}
+.point:last-child{border-bottom:none}
+.pt-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pt-head h4{margin:0;font-size:19px;font-weight:800}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;background:var(--primary-main);color:#FFFFFF;
+  border-radius:999px;padding:7px 18px;font-size:11.5px;font-weight:800;letter-spacing:.02em;white-space:nowrap;
+}
+.pill.blue{background:var(--secondary-main)}
+.pill.line{background:transparent;color:var(--teal-text);box-shadow:inset 0 0 0 2px var(--primary-main)}
+.pt-sub{font-size:11px;color:var(--text-muted);margin:3px 0 7px;text-transform:uppercase;letter-spacing:.04em}
+.point p{margin:0;font-size:var(--fs-body);line-height:1.5;color:var(--text-secondary)}
+
+/* blue pill bar — "SaaS · BigData · AI" */
+.pill-bar{
+  display:flex;align-items:center;justify-content:space-around;gap:18px;
+  background:var(--secondary-main);color:#FFFFFF;border-radius:10px;padding:12px 28px;
+  box-shadow:0 0 0 4px var(--bg-paper),0 0 0 6.5px var(--secondary-main);margin:6px 6px;
+}
+.pill-bar > span{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700}
+.pill-bar .ic{font-size:26px}
+.pill-bar.aqua{background:var(--primary-main);box-shadow:0 0 0 4px var(--bg-paper),0 0 0 6.5px var(--primary-main)}
+html[data-mode="flow"] .pill-bar{flex-wrap:wrap;padding:10px 14px}
+html[data-mode="flow"] .pill-bar > span{font-size:15px}
+
+/* ==========================================================================
+   12 · HORIZONTAL BAR CHART
+   ========================================================================== */
+
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:grid;grid-template-columns:136px 1fr 164px;align-items:center;gap:12px;font-size:12px}
+.bar-row.no-detail{grid-template-columns:136px 1fr}
+.bar-row .nm{font-weight:800;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;font-size:11.5px}
+.bar-track{background:var(--bg-soft);border-radius:999px;height:28px;overflow:hidden}
+.bar-fill{
+  height:100%;display:flex;align-items:center;padding:0 12px;color:#FFFFFF;
+  font-size:12px;font-weight:800;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.t-primary{background:var(--series-1);color:var(--text-on-aqua)}
+.t-secondary{background:var(--series-2)}
+.t-accent1{background:var(--series-3);color:var(--text-on-aqua)}
+.t-accent2{background:var(--series-4)}
+.t-accent5{background:var(--series-5)}
+.t-accent4{background:var(--series-6);color:var(--text-on-aqua)}
+.t-accent6{background:var(--series-7)}
+.t-accent7{background:var(--series-9)}
+.t-dark{background:var(--navy)}
+.t-accent3{background:var(--series-8)}
+.bar-row .dt{font-size:11px;color:var(--text-secondary);line-height:1.3}
+.bar-row .dt strong{color:var(--text-primary)}
+
+/* progress meter (versus notes, points) */
+.meter{height:7px;border-radius:999px;background:var(--bg-soft);overflow:hidden;margin-top:9px}
+.meter > i{display:block;height:100%;border-radius:999px;background:var(--pink)}
+.meter.blue > i{background:var(--secondary-main)}
+.meter.aqua > i{background:var(--primary-main)}
+
+/* ==========================================================================
+   13 · MINI CHANNEL CHART (inside media cards)
+   ========================================================================== */
+
+.mini-chart{padding:9px 12px 11px;display:flex;flex-direction:column;gap:3.5px;flex:0 0 auto;border-top:1px solid var(--divider);margin-top:auto}
+.mc-h{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-primary);margin-bottom:1px}
+.mc-row{display:grid;grid-template-columns:76px 1fr 26px;align-items:center;gap:6px}
+.mc-n{font-size:9px;text-align:right;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-track{background:var(--bg-soft);border-radius:999px;height:12px;overflow:hidden}
+.mc-fill{height:100%;border-radius:999px}
+.mc-v{font-size:9px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+html[data-mode="flow"] .mc-h,html[data-mode="flow"] .mc-n,html[data-mode="flow"] .mc-v{font-size:11px}
+html[data-mode="flow"] .mc-row{grid-template-columns:92px 1fr 34px}
+
+/* ==========================================================================
+   14 · MEDIA — video / image cards, and device frames
+   ========================================================================== */
+
+.media-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1;min-height:0}
+.media-row.two{grid-template-columns:repeat(2,1fr)}
+.media-row.three{grid-template-columns:repeat(3,1fr)}
+.media-card{
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:var(--radius);
+  box-shadow:var(--card-shadow);overflow:hidden;display:flex;flex-direction:column;min-height:0;
+}
+.media-card video,.media-card img{width:100%;background:var(--media-bg);display:block;object-fit:cover;flex:1 1 auto;min-height:110px}
+.media-meta{padding:10px 13px;display:flex;flex-direction:column;gap:4px;flex:0 0 auto;overflow:hidden}
+.media-meta .t{font-size:11.5px;font-weight:800;line-height:1.25;text-transform:uppercase}
+.media-meta .c{font-size:10.5px;color:var(--text-secondary);line-height:1.42}
+html[data-mode="flow"] .media-meta .t{font-size:calc(var(--fs-body) * .98)}
+html[data-mode="flow"] .media-meta .c{font-size:calc(var(--fs-body) * .92)}
+.media-row.ratio-fixed{flex:0 1 auto;align-content:start}
+.media-row.ratio-fixed video,.media-row.ratio-fixed img{flex:0 0 auto;aspect-ratio:16/10;height:auto;min-height:0}
+.media-row.ratio-fixed .mini-chart{flex:1 1 auto;justify-content:flex-start}
+.media-row.portrait video,.media-row.portrait img{flex:0 0 auto;aspect-ratio:9/16;height:auto;min-height:0;object-fit:contain}
+
+/* device frames: <div class="device monitor|tv|phone|laptop"><img|video></div> */
+.device{position:relative;display:flex;flex-direction:column;align-items:center;margin:0 auto;width:100%}
+.device > img,.device > video,.device > .screen{
+  display:block;width:100%;object-fit:cover;background:#FFFFFF;
+  border:12px solid #111;border-radius:8px;box-shadow:0 18px 40px rgba(15,23,42,.25);
+}
+.device > .screen{display:flex;align-items:center;justify-content:center;color:var(--navy);font-size:64px}
+.device.monitor > *{aspect-ratio:16/10}
+.device.monitor{padding-bottom:12px}
+.device.monitor::after{content:'';width:11%;height:40px;background:#B9BEC4;clip-path:polygon(22% 0,78% 0,100% 100%,0 100%)}
+.device.monitor::before{content:'';position:absolute;bottom:0;left:31%;width:38%;height:14px;border-radius:50%;background:#8A8F96;box-shadow:0 8px 16px rgba(15,23,42,.25)}
+.device.tv > *{aspect-ratio:16/9;border-width:8px;border-radius:4px}
+.device.tv::after{content:'';width:62%;height:10px;margin-top:0;border-left:8px solid #333;border-right:8px solid #333;border-bottom:3px solid #333}
+.device.laptop > *{aspect-ratio:16/10;border-width:10px;border-radius:12px 12px 0 0;width:84%}
+.device.laptop::after{content:'';width:100%;height:14px;background:#C6CBD1;border-radius:0 0 14px 14px;box-shadow:0 10px 18px rgba(15,23,42,.2)}
+.device.phone{width:auto;height:100%;max-height:100%}
+.device.phone > *{aspect-ratio:9/19.5;height:100%;width:auto;border-width:12px;border-radius:38px}
+.device.phone::before{content:'';position:absolute;top:12px;left:50%;width:30%;height:20px;margin-left:-15%;background:#111;border-radius:0 0 12px 12px;z-index:2}
+html[data-mode="flow"] .device.phone{height:auto;width:60%}
+html[data-mode="flow"] .device.phone > *{width:100%;height:auto}
+
+/* ==========================================================================
+   15 · TABLES — rows are Aqua-outlined pills; the focus row is filled
+   ========================================================================== */
+
+table{width:100%;border-collapse:separate;border-spacing:0 7px;font-size:13px}
+th,td{padding:9px 14px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:800;font-size:12.5px;color:var(--text-primary);padding-bottom:0;background:transparent}
+tbody td{background:var(--bg-paper);border-top:2px solid var(--primary-main);border-bottom:2px solid var(--primary-main);font-weight:600}
+tbody td:first-child{border-left:2px solid var(--primary-main);border-radius:12px 0 0 12px;font-weight:800}
+tbody td:last-child{border-right:2px solid var(--primary-main);border-radius:0 12px 12px 0}
+table.text th,table.text td{text-align:left;vertical-align:top;line-height:1.35}
+td.focus{font-weight:800;color:var(--teal-text)}
+tr.focus td{background:var(--primary-main);color:#FFFFFF}
+tr.focus td.focus{color:#FFFFFF}
+td.up{color:var(--success);font-weight:800}
+td.down{color:var(--error);font-weight:800}
+tr.focus td.up,tr.focus td.down{color:#FFFFFF}
+.tbl-wrap{position:relative;padding-left:22px}
+.tbl-wrap::before{content:'';position:absolute;left:0;top:34px;bottom:30px;width:6px;border-radius:3px;background:var(--primary-main)}
+.tbl-note{padding:6px 2px 0;font-size:10.5px;line-height:1.45;color:var(--text-muted)}
+html[data-mode="flow"] table{font-size:calc(var(--fs-body) * .95)}
+html[data-mode="flow"] .tbl-wrap{padding-left:0}
+html[data-mode="flow"] .tbl-wrap::before{display:none}
+
+/* ==========================================================================
+   16 · CHART CARD
+   ========================================================================== */
+
+.chart-card{
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:var(--radius);
+  padding:14px 18px 10px;box-shadow:var(--card-shadow);
+}
+.chart-card h3{font-size:14px;font-weight:800;margin:0 0 10px}
+.chart-card svg{display:block;max-width:100%}
+.chart-canvas{position:relative;width:100%}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:6px;font-size:11.5px;color:var(--text-secondary);flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:6px}
+.swatch{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+.svg-label{paint-order:stroke;stroke:var(--halo);stroke-width:3.5px;stroke-linejoin:round;font-weight:700;font-size:11.5px}
+
+/* ==========================================================================
+   17 · TIMELINE — "STRATEGIES FOR SUCCESS", 3–6 steps
+   <div class="timeline"><div class="tl-step"><div class="tl-label">Q1</div>
+     <div class="tl-body"><span class="icon fill sm"><i class="ic" data-i="target"></i></span>
+     <h4>Title</h4><p>Text</p></div></div>…</div>
+   ========================================================================== */
+
+.timeline{display:grid;grid-auto-columns:1fr;grid-template-rows:1fr auto 1fr;flex:1;min-height:0;column-gap:0}
+.tl-step{display:contents}
+.tl-step:nth-child(1){--c:var(--series-5)}
+.tl-step:nth-child(2){--c:var(--series-2)}
+.tl-step:nth-child(3){--c:var(--series-1)}
+.tl-step:nth-child(4){--c:var(--series-9)}
+.tl-step:nth-child(5){--c:var(--series-4)}
+.tl-step:nth-child(6){--c:var(--series-3)}
+.tl-step:nth-child(1) > *{grid-column:1}.tl-step:nth-child(2) > *{grid-column:2}
+.tl-step:nth-child(3) > *{grid-column:3}.tl-step:nth-child(4) > *{grid-column:4}
+.tl-step:nth-child(5) > *{grid-column:5}.tl-step:nth-child(6) > *{grid-column:6}
+.tl-label{
+  grid-row:2;position:relative;height:46px;margin-right:-22px;border-radius:999px;background:var(--c);
+  color:#FFFFFF;display:flex;align-items:center;justify-content:center;padding:0 26px 0 50px;
+  font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+  box-shadow:0 0 0 5px var(--slide-bg);white-space:nowrap;
+}
+.tl-label::before{content:'';position:absolute;left:7px;top:7px;width:32px;height:32px;border-radius:50%;background:#FFFFFF}
+.tl-step:last-child .tl-label{margin-right:0}
+.tl-step:nth-child(1) .tl-label{z-index:6}.tl-step:nth-child(2) .tl-label{z-index:5}
+.tl-step:nth-child(3) .tl-label{z-index:4}.tl-step:nth-child(4) .tl-label{z-index:3}
+.tl-step:nth-child(5) .tl-label{z-index:2}
+.tl-body{position:relative;padding:0 14px 16px 62px;min-height:0}
+.tl-step:nth-child(odd) .tl-body{grid-row:1;padding-top:6px}
+.tl-step:nth-child(even) .tl-body{grid-row:3;padding-top:16px}
+.tl-body::before{content:'';position:absolute;left:25px;width:3px;background:var(--c);border-radius:2px}
+.tl-step:nth-child(odd) .tl-body::before{top:30px;bottom:0}
+.tl-step:nth-child(even) .tl-body::before{top:0;bottom:36px}
+.tl-body .icon{position:absolute;left:0;--sz:52px;background:var(--c);border-color:var(--c);color:#FFFFFF;box-shadow:none}
+.tl-step:nth-child(odd) .tl-body .icon{top:0}
+.tl-step:nth-child(even) .tl-body .icon{bottom:0}
+.tl-body h4{margin:4px 0 6px;font-size:15px;font-weight:800;text-transform:uppercase;color:var(--c)}
+.tl-step:nth-child(3) .tl-body h4{color:var(--teal-text)}
+.tl-body p{margin:0;font-size:12px;line-height:1.5;color:var(--text-secondary)}
+html[data-mode="flow"] .timeline{display:flex;flex-direction:column;gap:14px}
+html[data-mode="flow"] .tl-step{display:flex;flex-direction:column;gap:8px}
+html[data-mode="flow"] .tl-label{margin-right:0;justify-content:flex-start;box-shadow:none}
+html[data-mode="flow"] .tl-body{padding:0 0 0 62px;min-height:56px}
+html[data-mode="flow"] .tl-body::before{display:none}
+html[data-mode="flow"] .tl-body .icon{top:0!important;bottom:auto!important}
+
+/* ==========================================================================
+   18 · FUNNEL — <ol class="funnel"><li>Stage <b>value</b></li>…</ol>, 3–7 steps
+   ========================================================================== */
+
+.funnel{list-style:none;margin:0 auto;padding:0;display:flex;flex-direction:column;align-items:center;gap:7px;width:100%}
+.funnel li{
+  position:relative;width:calc(100% - (var(--i,0) * 9%));min-height:44px;padding:8px 22px;
+  display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;
+  font-size:14px;font-weight:800;line-height:1.2;
+}
+.funnel li::before{
+  content:'';position:absolute;inset:0;z-index:-1;background:var(--bg-paper);
+  border:var(--stroke) solid var(--primary-main);border-radius:12px;box-shadow:var(--card-shadow);
+  transform:perspective(160px) rotateX(-7deg);
+}
+.funnel li b{color:var(--teal-text)}
+.funnel li:nth-child(2){--i:1}.funnel li:nth-child(3){--i:2}.funnel li:nth-child(4){--i:3}
+.funnel li:nth-child(5){--i:4}.funnel li:nth-child(6){--i:5}.funnel li:nth-child(7){--i:6}
+.funnel li.on::before{background:var(--primary-main)}
+.funnel li.on,.funnel li.on b{color:#FFFFFF}
+.funnel{isolation:isolate}
+
+/* ==========================================================================
+   19 · VERSUS — two filled cards with a pink VS badge
+   ========================================================================== */
+
+.versus{
+  display:grid;grid-template-columns:1fr 1fr;gap:120px;position:relative;align-items:center;
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:28px;
+  padding:26px 34px;box-shadow:var(--card-shadow-lg);
+}
+.vs-side{display:flex;flex-direction:column;gap:16px}
+.vs-side:last-of-type{flex-direction:column-reverse}
+.vs-card{
+  border-radius:24px;padding:20px 26px;color:#FFFFFF;background:var(--secondary-main);
+  box-shadow:0 0 0 3px #FFFFFF,var(--card-shadow-lg);position:relative;
+}
+.vs-card.b{background:var(--primary-main)}
+.vs-card .v{font-size:66px;font-weight:800;line-height:1;letter-spacing:-.02em;display:flex;align-items:flex-start;gap:14px}
+.vs-card .v.down::after,.vs-card .v.up::after{content:'';border-left:11px solid transparent;border-right:11px solid transparent;margin-top:10px}
+.vs-card .v.down::after{border-top:16px solid #FFFFFF}
+.vs-card .v.up::after{border-bottom:16px solid #FFFFFF}
+.vs-card .l{font-size:22px;font-weight:700;margin:6px 0 8px}
+.vs-card p{margin:0;font-size:13px;line-height:1.5;color:rgba(255,255,255,.95)}
+.vs-note{
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:12px;
+  padding:12px 18px;font-size:13px;line-height:1.45;color:var(--text-secondary);box-shadow:var(--card-shadow);
+  width:78%;
+}
+.vs-side:first-of-type .vs-note{align-self:flex-start;margin-left:6%}
+.vs-side:last-of-type .vs-note{align-self:flex-end}
+.vs-badge{
+  position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;z-index:3;
+  border-radius:50%;background:var(--pink);color:#FFFFFF;display:flex;align-items:center;justify-content:center;
+  font-size:30px;font-weight:800;box-shadow:0 0 0 7px #FFFFFF,var(--card-shadow-lg);
+}
+html[data-mode="flow"] .versus{padding:18px;gap:110px}
+html[data-mode="flow"] .vs-side:last-of-type{flex-direction:column}
+html[data-mode="flow"] .vs-note{width:100%;margin:0!important}
+html[data-mode="flow"] .vs-card .v{font-size:46px}
+
+/* ==========================================================================
+   20 · HUB & TAG HUB — "about us" hub, "OUR EXPERTISE" tag wheel
+   ========================================================================== */
+
+.hub{display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;gap:26px;position:relative;flex:1}
+.hub::before{          /* the grey connector loop behind the three blocks */
+  content:'';position:absolute;left:21%;right:21%;top:12%;bottom:12%;
+  border:4px solid #DADFE2;border-radius:48px;z-index:-1;
+}
+.hub-card{
+  background:var(--bg-paper);border:4px solid var(--primary-main);border-radius:34px;
+  padding:34px 34px;text-align:center;font-size:24px;line-height:1.45;font-weight:500;box-shadow:var(--card-shadow-lg);
+}
+.hub-card strong{font-weight:800}
+.hub-stat{display:flex;align-items:center;gap:22px}
+.hub-stat.left{flex-direction:row-reverse;text-align:right}
+.hub-stat .icon{--sz:126px;border-width:5px;font-size:52px;box-shadow:var(--card-shadow-lg)}
+.hub-stat b{display:block;font-size:17px;font-weight:800;text-transform:uppercase;margin-bottom:6px}
+.hub-stat p{margin:0;font-size:12.5px;line-height:1.6;text-transform:uppercase;color:var(--text-secondary)}
+.hub-stat p + p{margin-top:0}
+html[data-mode="flow"] .hub::before{display:none}
+html[data-mode="flow"] .hub-stat,html[data-mode="flow"] .hub-stat.left{flex-direction:row;text-align:left}
+html[data-mode="flow"] .hub-stat .icon{--sz:80px;font-size:34px}
+html[data-mode="flow"] .hub-card{font-size:18px;padding:22px}
+
+.tag-hub{display:grid;grid-template-columns:1fr 250px 1fr;align-items:center;gap:30px;flex:1}
+.tag-col{display:flex;flex-direction:column;gap:14px}
+.tag{
+  position:relative;display:flex;align-items:center;min-height:54px;
+  background:var(--bg-paper);border:var(--stroke) solid var(--primary-main);border-radius:26px 26px 26px 8px;
+  box-shadow:var(--card-shadow);font-size:14px;font-weight:800;text-transform:uppercase;
+}
+.tag-col.left .tag{justify-content:center;padding:0 64px 0 22px;border-radius:26px 26px 8px 26px}
+.tag-col.right .tag{justify-content:center;padding:0 22px 0 64px}
+.tag .icon{position:absolute;top:50%;margin-top:-35px;--sz:70px;font-size:30px;background:#FFFFFF;color:#0A0A0A;border-width:5px}
+.tag-col.left .tag .icon{right:-26px}
+.tag-col.right .tag .icon{left:-26px}
+.tag-col.left .tag:nth-child(1),.tag-col.left .tag:nth-child(5){margin-left:56px;margin-right:-10px}
+.tag-col.left .tag:nth-child(2),.tag-col.left .tag:nth-child(4){margin-left:12px;margin-right:18px}
+.tag-col.left .tag:nth-child(3){margin-right:34px}
+.tag-col.right .tag:nth-child(1),.tag-col.right .tag:nth-child(5){margin-right:56px;margin-left:-10px}
+.tag-col.right .tag:nth-child(2),.tag-col.right .tag:nth-child(4){margin-right:12px;margin-left:18px}
+.tag-col.right .tag:nth-child(3){margin-left:34px}
+.hub-core{
+  width:250px;height:250px;border-radius:50%;border:3px solid var(--primary-main);background:var(--bg-paper);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:26px;
+  box-shadow:var(--card-shadow-lg);color:var(--primary-main);font-weight:800;font-size:20px;
+}
+.hub-core .mark svg{width:180px;height:auto;display:block}
+html[data-mode="flow"] .tag-col .tag{margin:0 26px!important}
+html[data-mode="flow"] .hub-core{margin:0 auto;width:190px;height:190px}
+
+/* ==========================================================================
+   21 · LOGOS, BAND FOOT, BRAND MARKS IN COPY
+   ========================================================================== */
+
+/* inline official mark: <span class="mark" data-mark="mia|pipol"></span> (currentColor) */
+.mark{display:inline-flex;vertical-align:middle}
+.mark svg{height:1em;width:auto;display:block}
+.logo-strip{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-top:auto}
+.logo-strip.names{justify-content:flex-start;gap:12px}
+.logo-strip.names span{border:var(--stroke) solid var(--primary-main);border-radius:999px;padding:9px 20px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:var(--bg-paper);box-shadow:var(--card-shadow)}
+.logo-strip img{height:34px;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1) contrast(1.4);opacity:.9}
+.band-foot{
+  margin:auto calc(var(--pad-x) * -1) calc(var(--nav-h) * -1);padding:14px var(--pad-x) 60px;
+  background:var(--primary-main);color:#FFFFFF;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:30px;font-weight:800;text-transform:uppercase;letter-spacing:.01em;border-radius:60px 60px 0 0;
+}
+.band-foot .mark{font-size:44px;color:var(--secondary-main);background:#FFFFFF;border-radius:999px;padding:6px 18px}
+html[data-mode="flow"] .band-foot{margin:18px calc(var(--pad-x) * -1) calc(var(--pad-y) * -1);font-size:18px;flex-wrap:wrap;border-radius:30px 30px 0 0}
+html[data-mode="flow"] .band-foot .mark{font-size:28px}
+
+/* ==========================================================================
+   22 · DECORATIONS — <section class="slide" data-deco="corners|arc|ring|dots|blob">
+   Injected by the runtime as <div class="deco">; flat shapes, never gradients.
+   ========================================================================== */
+
+.deco{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.deco i{position:absolute;display:block}
+/* corners: Aqua rounded blocks rising from both bottom corners */
+.deco.corners i:nth-child(1){left:0;bottom:0;width:128px;height:190px;background:var(--primary-main);border-radius:0 64px 0 0}
+.deco.corners i:nth-child(2){right:0;bottom:0;width:128px;height:190px;background:var(--primary-main);border-radius:64px 0 0 0}
+/* arc: a big Aqua disc bleeding off the right edge, a half-arch on the left */
+.deco.arc i:nth-child(1){right:-230px;top:80px;width:520px;height:620px;border-radius:50%;background:var(--primary-main)}
+.deco.arc i:nth-child(2){left:0;bottom:0;width:210px;height:520px;background:var(--primary-main);border-radius:0 110px 0 0}
+/* ring: a thick Aqua ring in the lower-right corner */
+.deco.ring i:nth-child(1){right:-120px;bottom:-40px;width:320px;height:320px;border-radius:50%;border:70px solid var(--primary-main)}
+/* dots: a blue outline ring + Aqua disc, low left */
+.deco.dots i:nth-child(1){left:480px;bottom:94px;width:74px;height:74px;border-radius:50%;background:var(--primary-main)}
+.deco.dots i:nth-child(2){left:468px;bottom:148px;width:32px;height:32px;border-radius:50%;border:4px solid var(--secondary-main)}
+/* blob: Aqua ground under the lower half, rising at the right */
+.deco.blob i:nth-child(1){left:110px;right:0;bottom:0;height:300px;background:var(--primary-main)}
+.deco.blob i:nth-child(2){right:0;top:250px;width:22%;bottom:0;background:var(--primary-main);border-radius:0}
+.deco.blob i:nth-child(3){left:56px;bottom:50px;width:150px;height:150px;border-radius:50%;background:var(--primary-main)}
+.deco.blob i:nth-child(4){left:40px;bottom:150px;width:44px;height:44px;border-radius:50%;border:5px solid var(--secondary-main)}
+.deco.blob i:nth-child(5){right:130px;top:92px;width:120px;height:120px;border-radius:50%;border:4px solid var(--secondary-main)}
+/* frame: Aqua L hugging the right and bottom edges, white field with a big rounded corner */
+.deco.frame i:nth-child(1){inset:0;background:var(--primary-main)}
+.deco.frame i:nth-child(2){left:0;top:0;right:110px;bottom:66px;background:var(--slide-bg);border-radius:0 0 96px 0}
+.deco.frame i:nth-child(3){right:0;top:0;width:111px;height:var(--head-h);background:var(--slide-bg)}
+.slide[data-deco="frame"] .slide-body{margin-right:90px}
+
+/* ==========================================================================
+   23 · CLOSING — Aqua panel with the claim, takeaways as a checked list
+   ========================================================================== */
+
+.closing{padding:0}
+.closing::before{
+  content:'';position:absolute;left:0;top:var(--head-h);bottom:0;width:470px;
+  background:var(--primary-main);border-radius:0 64px 0 0;z-index:-1;
+}
+.closing-inner{
+  position:relative;z-index:2;width:100%;height:100%;
+  display:grid;grid-template-columns:470px 1fr;column-gap:64px;
+  grid-template-rows:1fr auto auto auto auto 1fr;
+  padding:var(--head-h) 72px var(--nav-h) 0;
+}
+.closing-inner > .eyebrow{grid-column:1;grid-row:2;padding:0 44px 0 56px;color:#FFFFFF}
+.closing-inner > .eyebrow::before{background:#FFFFFF}
+.closing-inner > h2{grid-column:1;grid-row:3;padding:0 44px 0 56px;color:#FFFFFF;font-size:calc(var(--fs-h2) * 1.2);margin:0 0 18px}
+.closing-inner > h2 .accent{color:var(--num-on-aqua)}
+.closing-inner > .dek{grid-column:1;grid-row:4;padding:0 44px 0 56px;color:var(--on-aqua-2);margin:0 0 22px}
+.closing-inner > .report-link{grid-column:1;grid-row:5;margin:0 44px 0 56px;justify-self:start}
+.closing-inner > .takeaways{grid-column:2;grid-row:2 / 6;align-self:center}
+.closing .iso{position:absolute;left:-60px;bottom:-80px;width:250px;height:auto;color:#FFFFFF;opacity:.16;z-index:1!important}
+.takeaways{display:flex;flex-direction:column;gap:24px}
+.takeaway{display:grid;grid-template-columns:52px 1fr;column-gap:20px;align-items:start;position:relative}
+.takeaway::before{content:'';grid-row:1 / 3;width:46px;height:46px;border-radius:50%;border:2.5px solid var(--primary-main);background:var(--bg-paper)}
+.takeaway::after{content:'';position:absolute;left:16px;top:15px;width:13px;height:7px;border-left:2.5px solid var(--primary-main);border-bottom:2.5px solid var(--primary-main);transform:rotate(-45deg)}
+.takeaway .n{grid-column:2;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-text);margin:2px 0 5px}
+.takeaway p{grid-column:2;margin:0;font-size:16px;line-height:1.45;font-weight:500;color:var(--text-secondary)}
+.takeaway p strong{color:var(--text-primary)}
+/* takeaways outside the closing (e.g. a summary slide) keep the same list look */
+.report-link{
+  display:inline-flex;align-items:center;gap:12px;background:#FFFFFF;color:var(--primary-ink);text-decoration:none;
+  padding:14px 26px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 10px 24px rgba(0,0,0,.14);transition:transform .18s ease;
+}
+.report-link:hover,.report-link:focus-visible{transform:translateY(-2px);outline:none}
+.report-link .arrow{font-size:18px;line-height:1;letter-spacing:0}
+.slide:not(.closing) .report-link{background:var(--primary-main);color:#0A0A0A}
+html[data-mode="flow"] .closing::before{width:100%;top:52px;bottom:auto;height:var(--closing-panel-h,300px);border-radius:0 0 40px 0}
+html[data-mode="flow"] .closing-inner{display:flex;flex-direction:column;padding:calc(var(--head-h) + 6px) 0 var(--pad-y)}
+html[data-mode="flow"] .closing-inner > *{padding-left:var(--pad-x)!important;padding-right:var(--pad-x)!important}
+html[data-mode="flow"] .closing-inner > .report-link{margin:0 var(--pad-x) 26px;padding:12px 20px!important;order:4}
+html[data-mode="flow"] .closing-inner > .takeaways{order:5}
+html[data-mode="flow"] .closing .iso{display:none}
+html[data-mode="flow"] .closing::before{display:none}
+html[data-mode="flow"] .closing-inner > .eyebrow,html[data-mode="flow"] .closing-inner > h2,html[data-mode="flow"] .closing-inner > .dek{color:var(--text-primary)}
+html[data-mode="flow"] .closing-inner > .eyebrow{color:var(--teal-text)}
+html[data-mode="flow"] .closing-inner > h2 .accent{color:var(--primary-main)}
+html[data-mode="flow"] .closing-inner > .dek{color:var(--text-secondary)}
+html[data-mode="flow"] .closing .report-link{background:var(--primary-main);color:#0A0A0A}
+
+/* ==========================================================================
+   24 · NAVIGATION — a floating pill bottom-right (injected by the runtime)
+   ========================================================================== */
+
+#chrome{
+  position:absolute;right:16px;bottom:12px;height:38px;z-index:10;
+  display:flex;align-items:center;gap:12px;padding:0 6px 0 14px;
+  background:rgba(255,255,255,.96);border-radius:999px;box-shadow:0 6px 20px rgba(15,23,42,.18);
+  color:#0A0A0A;
+}
+#chrome .brand{display:none}
+#dots{display:flex;gap:5px;align-items:center}
+.dot{width:8px;height:8px;border-radius:999px;border:1.5px solid rgba(10,10,10,.3);background:transparent;padding:0;cursor:pointer;transition:all .18s ease}
+.dot:hover{border-color:var(--primary-main)}
+.dot.on{background:var(--primary-main);border-color:var(--primary-main);width:20px}
+.dot:focus-visible{outline:2px solid var(--primary-ink);outline-offset:2px}
+.nav{display:flex;align-items:center;gap:6px}
+.nav button{
+  font-family:inherit;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--primary-main);color:#0A0A0A;border:none;border-radius:999px;padding:7px 13px;cursor:pointer;
+  transition:background .18s ease,transform .1s ease;
+}
+.nav button:hover:not(:disabled){background:var(--primary-dark)}
+.nav button:active:not(:disabled){transform:scale(.96)}
+.nav button:disabled{background:transparent;color:#9CA3AF;cursor:not-allowed;box-shadow:inset 0 0 0 1.5px rgba(10,10,10,.14)}
+.nav button:focus-visible{outline:2px solid var(--primary-ink);outline-offset:2px}
+#counter{font-size:12px;font-weight:800;min-width:40px;text-align:center;font-variant-numeric:tabular-nums}
+#progress{position:absolute;left:0;bottom:0;height:4px;background:var(--secondary-main);transition:width .3s ease;z-index:10}
+.kbd-tip{
+  position:absolute;bottom:18px;left:18px;font-size:11px;color:#0A0A0A;z-index:10;
+  background:rgba(255,255,255,.92);border-radius:999px;padding:5px 12px;box-shadow:0 4px 14px rgba(15,23,42,.12);
+}
+kbd{font-family:inherit;font-size:10px;background:#FFFFFF;border:1px solid rgba(10,10,10,.22);border-radius:3px;padding:1px 5px;color:#0A0A0A}
+
+html[data-mode="flow"] #chrome{
+  position:fixed;top:0;bottom:auto;left:0;right:0;height:46px;border-radius:0;padding:0 12px;
+  justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.14);
+}
+html[data-mode="flow"] #progress{position:fixed;top:46px;bottom:auto}
+html[data-mode="flow"] #viewport{padding-top:62px}
+html[data-mode="flow"] .nav button{display:none}
+html[data-mode="flow"] #dots{gap:4px;flex-wrap:nowrap;overflow:hidden;min-width:0}
+html[data-mode="flow"] .dot{width:8px;height:8px}
+html[data-mode="flow"] .kbd-tip{display:none}
+
+/* ==========================================================================
+   25 · SPEAKER NOTES · DEV MODE
+   ========================================================================== */
+
+.notes{display:none}
+html[data-notes="on"] .slide.active .notes,
+html[data-mode="flow"][data-notes="on"] .notes{
+  display:block;position:absolute;left:18px;right:220px;bottom:56px;z-index:11;
+  padding:11px 14px;background:#fffbeb;border:1px dashed #f59e0b;border-radius:6px;
+  font-size:11.5px;line-height:1.5;color:#78350f;
+}
+html[data-mode="flow"][data-notes="on"] .notes{position:relative;left:auto;right:auto;bottom:auto;margin-top:12px}
+.slide[data-overflow]{outline:3px solid var(--error);outline-offset:-3px}
+.slide[data-overflow]::after{
+  content:attr(data-overflow);position:absolute;top:56px;left:8px;z-index:20;
+  background:var(--error);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:4px;
+}
+
+/* ==========================================================================
+   26 · PRINT / PDF EXPORT — one slide per landscape page
+   ========================================================================== */
+
+@page{size:1280px 720px;margin:0}
+@media print{
+  html[data-mode],html[data-mode] body,html,body{height:auto!important;overflow:visible!important;background:#fff}
+  html[data-mode] #viewport,#viewport{position:static;display:block;padding:0}
+  html[data-mode] #stage,#stage{width:1280px;height:auto;transform:none!important;box-shadow:none;border-radius:0;overflow:visible;display:block;max-width:none;margin:0;gap:0}
+  html[data-mode] .slide{scroll-margin-top:0}
+  html[data-mode] .slide,.slide{
+    position:relative!important;inset:auto!important;display:flex!important;
+    width:1280px!important;height:720px!important;
+    break-after:page;page-break-after:always;break-inside:avoid;overflow:hidden;
+    box-shadow:none;border-radius:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    animation:none!important;opacity:1!important;transform:none!important;
+  }
+  .slide:last-of-type{break-after:auto;page-break-after:auto}
+  #chrome,#progress,.kbd-tip,.notes{display:none!important}
+  video{background:var(--media-bg)}
+  video::-webkit-media-controls,video::-webkit-media-controls-enclosure,video::-webkit-media-controls-panel{display:none!important}
+}
+
+/* ==========================================================================
+   27 · MOTION / ACCESSIBILITY
+   ========================================================================== */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+:focus-visible{outline:2px solid var(--primary-ink);outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage" role="region" aria-label="Superposición sin sobrecosto presentation"
+     data-label="PBA · 5–18 oct 2026" data-client="PBA" data-theme="light" data-brand="powered">
+
+  <!-- 1 · COVER -->
+  <section class="slide cover">
+    <div class="cover-inner">
+      <p class="eyebrow">Pipol · Performance Meta</p>
+      <h1>Superposición <span class="accent">sin sobrecosto</span></h1>
+      <p class="sub">La superposición de audiencias no encarece la subasta: lo establece Meta y lo confirman los datos de PBA</p>
+      <div class="cover-meta">
+        <span class="chip">5–11 oct 2026 · sin Andromeda</span>
+        <span class="chip">12–18 oct 2026 · con Andromeda</span>
+        <span class="chip on">Foco: PBA</span>
+      </div>
+      <div class="cover-foot">
+        <img class="flag" src="https://reports.mia.tech/assets/flags/ar.png" alt="Argentina">
+        <span class="cf-text">Argentina · Provincia de Buenos Aires · Meta Ads</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · BENEFICIO 1 — la regla de Meta -->
+  <section class="slide split">
+    <div class="panel">
+      <h2>Tus anuncios nunca compiten entre sí</h2>
+      <p>Si varios anuncios del mismo anunciante entran en la misma subasta, Meta <strong>elige uno solo</strong>: el de mayor valor total.</p>
+    </div>
+    <div class="main">
+      <p class="eyebrow">Beneficio 01 · La regla de la subasta</p>
+      <h2>La subasta <span class="accent">protege tu costo</span></h2>
+      <div class="slide-body">
+        <div class="feature-list compact">
+          <div class="feat"><span class="icon check"><i class="ic" data-i="award"></i></span><div><h4>Un solo anuncio por subasta</h4><p>Los demás anuncios del anunciante no se tienen en cuenta: no hay puja interna.</p></div></div>
+          <div class="feat"><span class="icon check"><i class="ic" data-i="shield"></i></span><div><h4>Diseñado para no subir costos</h4><p>Meta incluye solo el conjunto con mejor historial para evitar conflictos que podrían aumentar los costos.</p></div></div>
+          <div class="feat"><span class="icon check"><i class="ic" data-i="coins"></i></span><div><h4>Precio sin inflar</h4><p>Como no pujás contra vos mismo, la superposición de audiencias no se convierte en un CPM más caro.</p></div></div>
+        </div>
+        <div class="callout ok"><strong>Fuentes.</strong> Meta Business Help Center — «Entender la superposición en la subasta» e «Información sobre las audiencias superpuestas».</div>
+      </div>
+    </div>
+    <aside class="notes">Fuentes: https://www.facebook.com/business/help/537699989762051?id=561906377587030 · https://www.facebook.com/business/help/1679591828938781</aside>
+  </section>
+
+  <!-- 3 · BENEFICIO 2 — los datos -->
+  <section class="slide" data-deco="blob">
+    <p class="eyebrow">Beneficio 02 · Datos PBA</p>
+    <h2>Más superposición, <span class="accent">el costo apenas se mueve</span></h2>
+    <p class="dek">La frecuencia mide cuántas veces se impacta a las mismas personas. Semana sin Andromeda (5–11 oct 2026) vs. con Andromeda (12–18 oct 2026).</p>
+    <div class="slide-body">
+      <div class="versus">
+        <div class="vs-side">
+          <div class="vs-card a"><div class="v up">+10,0%</div><div class="l">Frecuencia</div><p>5,62 → 6,18 impactos por persona</p></div>
+          <div class="vs-note">Más superposición sobre el mismo público.<div class="meter blue"><i style="width:100%"></i></div></div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="vs-side">
+          <div class="vs-card b"><div class="v">+3,8%</div><div class="l">CPM</div><p>2.409,07 → 2.500,75</p></div>
+          <div class="vs-note">El costo crece casi tres veces menos.<div class="meter aqua"><i style="width:38%"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">Ratio de variación CPM/frecuencia: 3,8% / 10,0% ≈ 0,38. Si la superposición generara puja interna, el CPM habría subido al ritmo de la frecuencia.</aside>
+  </section>
+
+  <!-- 4 · BENEFICIO 3 — cierre -->
+  <section class="slide closing">
+    <div class="closing-inner">
+      <p class="eyebrow">Beneficio 03 · Conclusión</p>
+      <h2>La superposición <span class="accent">no te cuesta más</span></h2>
+      <p class="dek">Lo que dice Meta y lo que muestran los datos de PBA apuntan a lo mismo.</p>
+      <a class="report-link" href="https://www.facebook.com/business/help/537699989762051?id=561906377587030" target="_blank" rel="noopener">
+        <span>Ver la guía de Meta</span><span class="arrow">→</span>
+      </a>
+      <div class="takeaways">
+        <div class="takeaway"><div class="n">01 · Sin puja interna</div><p>Meta deja entrar <strong>un solo anuncio por anunciante</strong> en cada subasta: nunca pagás por competir contra vos mismo.</p></div>
+        <div class="takeaway"><div class="n">02 · Costo controlado</div><p>Con Andromeda la frecuencia sube <strong>+10,0%</strong> y el CPM solo <strong>+3,8%</strong>: el costo no acompaña a la superposición.</p></div>
+        <div class="takeaway"><div class="n">03 · Presupuesto protegido</div><p>La superposición de audiencias <strong>no encarece la subasta</strong>: el presupuesto de PBA no paga por competencia interna.</p></div>
+      </div>
+    </div>
+    <aside class="notes">Fuentes: https://www.facebook.com/business/help/537699989762051?id=561906377587030 · https://www.facebook.com/business/help/1679591828938781</aside>
+  </section>
+
+</div>
+</div>
+
+<script>
+/* ==========================================================================
+   Pipol Deck v3 — presentation runtime
+   https://reports.mia.tech/assets/deck/pipol-deck.v3.js
+
+   Pairs with pipol-deck.v3.css. Drop it at the end of <body>; it needs no
+   configuration. It:
+     · injects the header on every slide: the client logo slot (top-left) and
+       the official Pipol · Powered by MIA lockup (top-right), tone picked for contrast
+     · fills every <i class="ic" data-i="name"> with the built-in icon set
+     · injects decorations (data-deco) and the isotipo on index / closing
+     · fills <span class="mark" data-mark="mia|pipol"> and empty .hub-core
+     · injects the floating navigation pill (dots, prev/next, counter, progress)
+     · resolves every slide's theme (light | dark)
+     · scales the fixed 1280x720 stage; reflows to a scroll on phones
+     · keyboard, click, swipe and deep-link (#3) navigation; pauses video
+     · exposes window.pipolDeck and fires "pipol:slidechange"
+
+   Config (optional) via attributes on #stage:
+     data-client="Warren"                          client name (alt text of the logo)
+     data-client-logo="https://…/logo.svg"         client logo (absolute https or
+                                                   data: URI); without it a LOGO placeholder
+     data-label="Brazil Fintech · 1–28 Jul 2026"   deck caption (aria)
+     data-theme="light|dark"                       default slide theme (light)
+     data-brand="powered|badge|pipol"              lockup variant (powered by default)
+     data-brand-tone="color|white|black"           force a colour version (auto by contrast)
+     data-mode="stage|flow|auto"  data-flow-width="820"  data-min-scale="0.46"
+   Per slide: data-theme, data-brand (override), data-deco="corners|arc|ring|
+              dots|blob|frame", data-no-head (hide both pills),
+              data-no-client (hide the client pill only).
+   URL overrides: ?mode=flow|stage  ?dev=1  ?theme=dark|light
+   Keys: T inverts every slide's theme.
+
+   IMMUTABLE ASSET. Never edit in place once published — publish v4.
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  var STAGE_W = 1280, STAGE_H = 720;
+
+  /* Official artwork, from "LOGO pipol - powered by MIA.ai" — do not redraw. */
+  var PIPOL_MARK =
+    '<svg role="img" aria-label="Pipol" xmlns="http://www.w3.org/2000/svg" viewBox="42.895 47.898 1834.209 424.328" fill="currentColor"><path d="M 862 188.84375 L 926.078125 188.84375 C 928.046875 188.84375 929.640625 190.441406 929.640625 192.410156 L 929.640625 398.921875 C 929.640625 400.890625 928.046875 402.484375 926.078125 402.484375 L 862 402.484375 C 860.03125 402.484375 858.4375 400.890625 858.4375 398.921875 L 858.4375 192.410156 C 858.4375 190.441406 860.03125 188.84375 862 188.84375 "/><path d="M 1499.328125 321.445312 C 1499.328125 326.871094 1494.921875 331.28125 1489.492188 331.28125 L 1366.730469 331.28125 C 1361.304688 331.28125 1356.894531 326.871094 1356.894531 321.445312 L 1356.894531 198.683594 C 1356.894531 193.253906 1361.304688 188.84375 1366.730469 188.84375 L 1489.492188 188.84375 C 1494.921875 188.84375 1499.328125 193.253906 1499.328125 198.683594 Z M 1360.972656 117.640625 C 1358.355469 117.640625 1355.875 118.6875 1354.027344 120.535156 L 1288.582031 185.980469 C 1286.738281 187.824219 1285.691406 190.332031 1285.691406 192.921875 L 1285.691406 327.203125 C 1285.691406 329.820312 1286.738281 332.300781 1288.582031 334.148438 L 1354.027344 399.59375 C 1355.875 401.4375 1358.382812 402.484375 1360.972656 402.484375 L 1495.25 402.484375 C 1497.871094 402.484375 1500.347656 401.4375 1502.195312 399.59375 L 1567.640625 334.148438 C 1569.488281 332.300781 1570.535156 329.792969 1570.535156 327.203125 L 1570.535156 192.921875 C 1570.535156 190.304688 1569.488281 187.824219 1567.640625 185.980469 L 1502.195312 120.535156 C 1500.347656 118.6875 1497.84375 117.640625 1495.25 117.640625 C 1495.25 117.640625 1360.972656 117.640625 1360.972656 117.640625 "/><path d="M 1687.207031 331.28125 C 1681.777344 331.28125 1677.367188 326.871094 1677.367188 321.441406 L 1677.367188 127.476562 C 1677.367188 122.050781 1672.957031 117.640625 1667.53125 117.640625 L 1616 117.640625 C 1610.574219 117.640625 1606.164062 122.050781 1606.164062 127.476562 L 1606.164062 327.203125 C 1606.164062 329.820312 1607.210938 332.300781 1609.058594 334.144531 L 1674.503906 399.589844 C 1676.347656 401.4375 1678.855469 402.484375 1681.445312 402.484375 L 1815.726562 402.484375 C 1818.34375 402.484375 1820.824219 401.4375 1822.667969 399.589844 L 1874.199219 348.0625 C 1880.398438 341.863281 1876.015625 331.28125 1867.253906 331.28125 Z M 1687.207031 331.28125 "/><path d="M 929.640625 165.121094 L 929.640625 127.476562 C 929.640625 122.050781 925.230469 117.640625 919.804688 117.640625 L 882.164062 117.640625 C 873.398438 117.640625 869.019531 128.222656 875.21875 134.421875 L 912.859375 172.0625 C 919.058594 178.265625 929.640625 173.882812 929.640625 165.121094 "/><path d="M 819.941406 185.980469 L 754.496094 120.535156 C 752.652344 118.6875 750.144531 117.640625 747.550781 117.640625 L 547.828125 117.640625 C 542.398438 117.640625 537.992188 122.050781 537.992188 127.476562 L 537.992188 392.648438 C 537.992188 398.074219 542.398438 402.484375 547.828125 402.484375 L 599.355469 402.484375 C 604.785156 402.484375 609.195312 398.074219 609.195312 392.648438 L 609.195312 198.683594 C 609.195312 193.253906 613.605469 188.84375 619.03125 188.84375 L 741.792969 188.84375 C 747.222656 188.84375 751.632812 193.253906 751.632812 198.683594 L 751.632812 249.824219 C 751.632812 255.253906 747.222656 259.664062 741.792969 259.664062 L 654.632812 259.664062 C 649.207031 259.664062 644.796875 264.074219 644.796875 269.5 L 644.796875 321.03125 C 644.796875 326.457031 649.207031 330.867188 654.632812 330.867188 L 747.550781 330.867188 C 750.171875 330.867188 752.652344 329.820312 754.496094 327.972656 L 819.941406 262.527344 C 821.789062 260.683594 822.808594 258.175781 822.808594 255.585938 L 822.808594 192.921875 C 822.808594 190.304688 821.761719 187.824219 819.914062 185.980469 Z M 819.941406 185.980469 "/><path d="M 1247.222656 185.980469 L 1181.777344 120.535156 C 1179.929688 118.6875 1177.421875 117.640625 1174.832031 117.640625 L 975.109375 117.640625 C 969.679688 117.640625 965.269531 122.050781 965.269531 127.476562 L 965.269531 392.648438 C 965.269531 398.074219 969.679688 402.484375 975.109375 402.484375 L 1026.636719 402.484375 C 1032.066406 402.484375 1036.476562 398.074219 1036.476562 392.648438 L 1036.476562 198.683594 C 1036.476562 193.253906 1040.882812 188.84375 1046.3125 188.84375 L 1169.074219 188.84375 C 1174.503906 188.84375 1178.910156 193.253906 1178.910156 198.683594 L 1178.910156 249.824219 C 1178.910156 255.253906 1174.503906 259.664062 1169.074219 259.664062 L 1081.914062 259.664062 C 1076.484375 259.664062 1072.078125 264.074219 1072.078125 269.5 L 1072.078125 321.03125 C 1072.078125 326.457031 1076.484375 330.867188 1081.914062 330.867188 L 1174.832031 330.867188 C 1177.449219 330.867188 1179.929688 329.820312 1181.777344 327.972656 L 1247.222656 262.527344 C 1249.066406 260.683594 1250.085938 258.175781 1250.085938 255.585938 L 1250.085938 192.921875 C 1250.085938 190.304688 1249.042969 187.824219 1247.195312 185.980469 Z M 1247.222656 185.980469 "/><path d="M 461.027344 183.71875 L 330.9375 53.628906 C 327.273438 49.964844 322.285156 47.898438 317.105469 47.898438 L 190.511719 47.898438 C 186.628906 47.898438 182.90625 49.441406 180.152344 52.195312 L 47.195312 185.152344 C 44.441406 187.90625 42.894531 191.628906 42.894531 195.511719 L 42.894531 310.945312 C 42.894531 321.746094 51.660156 330.480469 62.433594 330.480469 L 184.421875 330.480469 L 184.421875 208.988281 C 184.421875 198.1875 193.1875 189.453125 203.960938 189.453125 L 305.613281 189.453125 C 316.414062 189.453125 325.175781 198.214844 325.175781 209.015625 L 325.175781 310.667969 C 325.175781 321.472656 316.414062 330.207031 305.640625 330.207031 L 184.421875 330.675781 L 184.421875 452.691406 C 184.421875 463.492188 193.1875 472.226562 203.988281 472.226562 L 319.722656 471.925781 C 323.550781 471.925781 327.21875 470.410156 329.945312 467.738281 L 462.351562 337.730469 C 465.160156 334.972656 466.761719 331.199219 466.761719 327.257812 L 466.761719 197.550781 C 466.761719 192.371094 464.691406 187.386719 461.027344 183.71875 Z M 461.027344 183.71875 "/></svg>';
+  /* "Pipol · Powered by MIA" — the official lockup (assets/brand/pipol-powered-by-mia-*.svg),
+     path for path; the colour version, the white one and the black one are CSS fills. */
+  var PIPOL_POWERED =
+    '<svg role="img" aria-label="Pipol, powered by MIA" xmlns="http://www.w3.org/2000/svg" viewBox="42.895 47.898 1836.504 523.609"><g class="pw-p"><path d="M 862 188.84375 L 926.078125 188.84375 C 928.046875 188.84375 929.640625 190.441406 929.640625 192.410156 L 929.640625 398.921875 C 929.640625 400.890625 928.046875 402.484375 926.078125 402.484375 L 862 402.484375 C 860.03125 402.484375 858.4375 400.890625 858.4375 398.921875 L 858.4375 192.410156 C 858.4375 190.441406 860.03125 188.84375 862 188.84375 "/><path d="M 1499.328125 321.445312 C 1499.328125 326.871094 1494.921875 331.28125 1489.492188 331.28125 L 1366.730469 331.28125 C 1361.304688 331.28125 1356.894531 326.871094 1356.894531 321.445312 L 1356.894531 198.683594 C 1356.894531 193.253906 1361.304688 188.84375 1366.730469 188.84375 L 1489.492188 188.84375 C 1494.921875 188.84375 1499.328125 193.253906 1499.328125 198.683594 Z M 1360.972656 117.640625 C 1358.355469 117.640625 1355.875 118.6875 1354.027344 120.535156 L 1288.582031 185.980469 C 1286.738281 187.824219 1285.691406 190.332031 1285.691406 192.921875 L 1285.691406 327.203125 C 1285.691406 329.820312 1286.738281 332.300781 1288.582031 334.148438 L 1354.027344 399.59375 C 1355.875 401.4375 1358.382812 402.484375 1360.972656 402.484375 L 1495.25 402.484375 C 1497.871094 402.484375 1500.347656 401.4375 1502.195312 399.59375 L 1567.640625 334.148438 C 1569.488281 332.300781 1570.535156 329.792969 1570.535156 327.203125 L 1570.535156 192.921875 C 1570.535156 190.304688 1569.488281 187.824219 1567.640625 185.980469 L 1502.195312 120.535156 C 1500.347656 118.6875 1497.84375 117.640625 1495.25 117.640625 C 1495.25 117.640625 1360.972656 117.640625 1360.972656 117.640625 "/><path d="M 1687.207031 331.28125 C 1681.777344 331.28125 1677.367188 326.871094 1677.367188 321.441406 L 1677.367188 127.476562 C 1677.367188 122.050781 1672.957031 117.640625 1667.53125 117.640625 L 1616 117.640625 C 1610.574219 117.640625 1606.164062 122.050781 1606.164062 127.476562 L 1606.164062 327.203125 C 1606.164062 329.820312 1607.210938 332.300781 1609.058594 334.144531 L 1674.503906 399.589844 C 1676.347656 401.4375 1678.855469 402.484375 1681.445312 402.484375 L 1815.726562 402.484375 C 1818.34375 402.484375 1820.824219 401.4375 1822.667969 399.589844 L 1874.199219 348.0625 C 1880.398438 341.863281 1876.015625 331.28125 1867.253906 331.28125 Z M 1687.207031 331.28125 "/><path d="M 929.640625 165.121094 L 929.640625 127.476562 C 929.640625 122.050781 925.230469 117.640625 919.804688 117.640625 L 882.164062 117.640625 C 873.398438 117.640625 869.019531 128.222656 875.21875 134.421875 L 912.859375 172.0625 C 919.058594 178.265625 929.640625 173.882812 929.640625 165.121094 "/><path d="M 819.941406 185.980469 L 754.496094 120.535156 C 752.652344 118.6875 750.144531 117.640625 747.550781 117.640625 L 547.828125 117.640625 C 542.398438 117.640625 537.992188 122.050781 537.992188 127.476562 L 537.992188 392.648438 C 537.992188 398.074219 542.398438 402.484375 547.828125 402.484375 L 599.355469 402.484375 C 604.785156 402.484375 609.195312 398.074219 609.195312 392.648438 L 609.195312 198.683594 C 609.195312 193.253906 613.605469 188.84375 619.03125 188.84375 L 741.792969 188.84375 C 747.222656 188.84375 751.632812 193.253906 751.632812 198.683594 L 751.632812 249.824219 C 751.632812 255.253906 747.222656 259.664062 741.792969 259.664062 L 654.632812 259.664062 C 649.207031 259.664062 644.796875 264.074219 644.796875 269.5 L 644.796875 321.03125 C 644.796875 326.457031 649.207031 330.867188 654.632812 330.867188 L 747.550781 330.867188 C 750.171875 330.867188 752.652344 329.820312 754.496094 327.972656 L 819.941406 262.527344 C 821.789062 260.683594 822.808594 258.175781 822.808594 255.585938 L 822.808594 192.921875 C 822.808594 190.304688 821.761719 187.824219 819.914062 185.980469 Z M 819.941406 185.980469 "/><path d="M 1247.222656 185.980469 L 1181.777344 120.535156 C 1179.929688 118.6875 1177.421875 117.640625 1174.832031 117.640625 L 975.109375 117.640625 C 969.679688 117.640625 965.269531 122.050781 965.269531 127.476562 L 965.269531 392.648438 C 965.269531 398.074219 969.679688 402.484375 975.109375 402.484375 L 1026.636719 402.484375 C 1032.066406 402.484375 1036.476562 398.074219 1036.476562 392.648438 L 1036.476562 198.683594 C 1036.476562 193.253906 1040.882812 188.84375 1046.3125 188.84375 L 1169.074219 188.84375 C 1174.503906 188.84375 1178.910156 193.253906 1178.910156 198.683594 L 1178.910156 249.824219 C 1178.910156 255.253906 1174.503906 259.664062 1169.074219 259.664062 L 1081.914062 259.664062 C 1076.484375 259.664062 1072.078125 264.074219 1072.078125 269.5 L 1072.078125 321.03125 C 1072.078125 326.457031 1076.484375 330.867188 1081.914062 330.867188 L 1174.832031 330.867188 C 1177.449219 330.867188 1179.929688 329.820312 1181.777344 327.972656 L 1247.222656 262.527344 C 1249.066406 260.683594 1250.085938 258.175781 1250.085938 255.585938 L 1250.085938 192.921875 C 1250.085938 190.304688 1249.042969 187.824219 1247.195312 185.980469 Z M 1247.222656 185.980469 "/><path d="M 461.027344 183.71875 L 330.9375 53.628906 C 327.273438 49.964844 322.285156 47.898438 317.105469 47.898438 L 190.511719 47.898438 C 186.628906 47.898438 182.90625 49.441406 180.152344 52.195312 L 47.195312 185.152344 C 44.441406 187.90625 42.894531 191.628906 42.894531 195.511719 L 42.894531 310.945312 C 42.894531 321.746094 51.660156 330.480469 62.433594 330.480469 L 184.421875 330.480469 L 184.421875 208.988281 C 184.421875 198.1875 193.1875 189.453125 203.960938 189.453125 L 305.613281 189.453125 C 316.414062 189.453125 325.175781 198.214844 325.175781 209.015625 L 325.175781 310.667969 C 325.175781 321.472656 316.414062 330.207031 305.640625 330.207031 L 184.421875 330.675781 L 184.421875 452.691406 C 184.421875 463.492188 193.1875 472.226562 203.988281 472.226562 L 319.722656 471.925781 C 323.550781 471.925781 327.21875 470.410156 329.945312 467.738281 L 462.351562 337.730469 C 465.160156 334.972656 466.761719 331.199219 466.761719 327.257812 L 466.761719 197.550781 C 466.761719 192.371094 464.691406 187.386719 461.027344 183.71875 Z M 461.027344 183.71875 "/></g><g class="pw-by"><path d="M 1378.035156 548.203125 L 1408.632812 480.84375 L 1419.066406 480.84375 L 1388.46875 548.203125 Z M 1390.753906 523.167969 L 1371.578125 480.84375 L 1382.011719 480.84375 L 1398.996094 518.300781 Z M 1345.351562 521.777344 C 1349.453125 521.777344 1352.765625 520.234375 1355.285156 517.15625 C 1357.800781 514.078125 1359.058594 510.019531 1359.058594 504.988281 C 1359.058594 500.019531 1357.800781 496.011719 1355.285156 492.964844 C 1352.765625 489.917969 1349.453125 488.394531 1345.351562 488.394531 C 1341.308594 488.394531 1338.027344 489.917969 1335.511719 492.964844 C 1332.996094 496.011719 1331.738281 500.054688 1331.738281 505.085938 C 1331.738281 510.121094 1332.996094 514.160156 1335.511719 517.207031 C 1338.027344 520.253906 1341.308594 521.777344 1345.351562 521.777344 M 1346.839844 530.320312 C 1342.46875 530.320312 1338.65625 529.261719 1335.414062 527.140625 C 1332.167969 525.023438 1329.636719 522.058594 1327.8125 518.25 C 1325.992188 514.441406 1325.082031 510.019531 1325.082031 504.988281 C 1325.082031 499.953125 1325.992188 495.546875 1327.8125 491.773438 C 1329.636719 487.996094 1332.167969 485.066406 1335.414062 482.980469 C 1338.65625 480.894531 1342.46875 479.851562 1346.839844 479.851562 C 1351.34375 479.851562 1355.265625 480.894531 1358.609375 482.980469 C 1361.953125 485.066406 1364.554688 487.996094 1366.410156 491.773438 C 1368.265625 495.546875 1369.191406 499.953125 1369.191406 504.988281 C 1369.191406 510.019531 1368.265625 514.441406 1366.410156 518.25 C 1364.554688 522.058594 1361.953125 525.023438 1358.609375 527.140625 C 1355.265625 529.261719 1351.34375 530.320312 1346.839844 530.320312 M 1322.296875 529.328125 L 1322.296875 461.671875 L 1332.234375 461.671875 L 1332.234375 491.972656 L 1331.242188 491.972656 L 1331.242188 519.589844 L 1332.234375 519.589844 L 1329.851562 529.328125 Z M 1276.203125 529.328125 L 1273.820312 519.589844 L 1274.8125 519.589844 L 1274.8125 491.972656 L 1273.820312 491.972656 L 1273.820312 461.671875 L 1283.753906 461.671875 L 1283.753906 529.328125 Z M 1260.707031 521.777344 C 1264.8125 521.777344 1268.105469 520.253906 1270.589844 517.207031 C 1273.074219 514.160156 1274.316406 510.121094 1274.316406 505.085938 C 1274.316406 500.054688 1273.074219 496.011719 1270.589844 492.964844 C 1268.105469 489.917969 1264.8125 488.394531 1260.707031 488.394531 C 1256.597656 488.394531 1253.285156 489.917969 1250.769531 492.964844 C 1248.25 496.011719 1246.996094 500.019531 1246.996094 504.988281 C 1246.996094 510.019531 1248.25 514.078125 1250.769531 517.15625 C 1253.285156 520.234375 1256.597656 521.777344 1260.707031 521.777344 M 1259.214844 530.320312 C 1254.777344 530.320312 1250.867188 529.261719 1247.492188 527.140625 C 1244.113281 525.023438 1241.496094 522.058594 1239.644531 518.25 C 1237.789062 514.441406 1236.859375 510.019531 1236.859375 504.988281 C 1236.859375 499.953125 1237.789062 495.546875 1239.644531 491.773438 C 1241.496094 487.996094 1244.113281 485.066406 1247.492188 482.980469 C 1250.867188 480.894531 1254.777344 479.851562 1259.214844 479.851562 C 1263.585938 479.851562 1267.394531 480.894531 1270.640625 482.980469 C 1273.882812 485.066406 1276.417969 487.996094 1278.238281 491.773438 C 1280.058594 495.546875 1280.972656 499.953125 1280.972656 504.988281 C 1280.972656 510.019531 1280.058594 514.441406 1278.238281 518.25 C 1276.417969 522.058594 1273.882812 525.023438 1270.640625 527.140625 C 1267.394531 529.261719 1263.585938 530.320312 1259.214844 530.320312 M 1206.660156 530.320312 C 1201.957031 530.320312 1197.816406 529.277344 1194.238281 527.191406 C 1190.664062 525.105469 1187.882812 522.175781 1185.894531 518.398438 C 1183.910156 514.625 1182.914062 510.21875 1182.914062 505.1875 C 1182.914062 500.085938 1183.910156 495.648438 1185.894531 491.871094 C 1187.882812 488.097656 1190.664062 485.152344 1194.238281 483.027344 C 1197.816406 480.914062 1201.957031 479.851562 1206.660156 479.851562 C 1211.425781 479.851562 1215.601562 480.914062 1219.175781 483.027344 C 1222.753906 485.152344 1225.535156 488.097656 1227.523438 491.871094 C 1229.511719 495.648438 1230.503906 500.085938 1230.503906 505.1875 C 1230.503906 505.648438 1230.484375 506.128906 1230.453125 506.625 C 1230.417969 507.121094 1230.367188 507.570312 1230.304688 507.96875 L 1192.351562 507.96875 L 1192.351562 499.421875 L 1223.152344 499.421875 L 1220.371094 505.1875 C 1220.371094 500.152344 1219.242188 496.011719 1216.992188 492.765625 C 1214.738281 489.523438 1211.292969 487.898438 1206.660156 487.898438 C 1202.550781 487.898438 1199.273438 489.207031 1196.824219 491.824219 C 1194.371094 494.4375 1193.148438 497.867188 1193.148438 502.105469 L 1193.148438 507.269531 C 1193.148438 511.710938 1194.339844 515.238281 1196.722656 517.851562 C 1199.109375 520.46875 1202.421875 521.777344 1206.660156 521.777344 C 1210.566406 521.777344 1213.578125 520.949219 1215.699219 519.292969 C 1217.816406 517.636719 1219.675781 515.582031 1221.265625 513.132812 L 1228.714844 517.800781 C 1226.460938 521.972656 1223.566406 525.105469 1220.019531 527.191406 C 1216.476562 529.277344 1212.023438 530.320312 1206.660156 530.320312 M 1163.542969 498.03125 L 1161.160156 496.941406 L 1161.160156 489.6875 L 1162.050781 488.59375 C 1162.714844 487.402344 1163.757812 486.125 1165.183594 484.769531 C 1166.605469 483.410156 1168.277344 482.253906 1170.199219 481.292969 C 1172.121094 480.332031 1174.074219 479.851562 1176.058594 479.851562 C 1177.054688 479.851562 1177.996094 479.917969 1178.890625 480.050781 C 1179.785156 480.183594 1180.464844 480.414062 1180.929688 480.746094 L 1180.929688 489.6875 L 1177.847656 489.6875 C 1173.34375 489.6875 1170.066406 490.367188 1168.011719 491.722656 C 1165.960938 493.082031 1164.46875 495.183594 1163.542969 498.03125 M 1162.648438 480.84375 L 1165.03125 493.960938 L 1165.03125 529.328125 L 1155.097656 529.328125 L 1155.097656 480.84375 Z M 1121.914062 530.320312 C 1117.210938 530.320312 1113.074219 529.277344 1109.496094 527.191406 C 1105.921875 525.105469 1103.140625 522.175781 1101.152344 518.398438 C 1099.164062 514.625 1098.171875 510.21875 1098.171875 505.1875 C 1098.171875 500.085938 1099.164062 495.648438 1101.152344 491.871094 C 1103.140625 488.097656 1105.921875 485.152344 1109.496094 483.027344 C 1113.074219 480.914062 1117.210938 479.851562 1121.914062 479.851562 C 1126.683594 479.851562 1130.859375 480.914062 1134.433594 483.027344 C 1138.007812 485.152344 1140.792969 488.097656 1142.777344 491.871094 C 1144.765625 495.648438 1145.757812 500.085938 1145.757812 505.1875 C 1145.757812 505.648438 1145.742188 506.128906 1145.707031 506.625 C 1145.675781 507.121094 1145.625 507.570312 1145.5625 507.96875 L 1107.609375 507.96875 L 1107.609375 499.421875 L 1138.40625 499.421875 L 1135.625 505.1875 C 1135.625 500.152344 1134.5 496.011719 1132.25 492.765625 C 1129.996094 489.523438 1126.550781 487.898438 1121.914062 487.898438 C 1117.808594 487.898438 1114.527344 489.207031 1112.082031 491.824219 C 1109.628906 494.4375 1108.402344 497.867188 1108.402344 502.105469 L 1108.402344 507.269531 C 1108.402344 511.710938 1109.597656 515.238281 1111.980469 517.851562 C 1114.363281 520.46875 1117.675781 521.777344 1121.914062 521.777344 C 1125.824219 521.777344 1128.835938 520.949219 1130.957031 519.292969 C 1133.074219 517.636719 1134.929688 515.582031 1136.519531 513.132812 L 1143.972656 517.800781 C 1141.71875 521.972656 1138.820312 525.105469 1135.277344 527.191406 C 1131.734375 529.277344 1127.28125 530.320312 1121.914062 530.320312 M 1040.449219 529.328125 L 1025.148438 480.84375 L 1035.082031 480.84375 L 1045.117188 516.511719 L 1044.222656 516.511719 L 1055.550781 480.84375 L 1064.589844 480.84375 L 1075.917969 516.511719 L 1075.023438 516.511719 L 1085.054688 480.84375 L 1094.992188 480.84375 L 1079.691406 529.328125 L 1071.246094 529.328125 L 1059.226562 491.476562 L 1060.914062 491.476562 L 1048.894531 529.328125 Z M 997.53125 520.785156 C 1001.96875 520.785156 1005.527344 519.339844 1008.210938 516.460938 C 1010.894531 513.582031 1012.234375 509.824219 1012.234375 505.1875 C 1012.234375 500.484375 1010.894531 496.675781 1008.210938 493.757812 C 1005.527344 490.847656 1001.96875 489.390625 997.53125 489.390625 C 993.160156 489.390625 989.632812 490.828125 986.949219 493.710938 C 984.265625 496.589844 982.925781 500.382812 982.925781 505.085938 C 982.925781 509.789062 984.265625 513.582031 986.949219 516.460938 C 989.632812 519.339844 993.160156 520.785156 997.53125 520.785156 M 997.53125 530.320312 C 992.628906 530.320312 988.308594 529.277344 984.566406 527.191406 C 980.824219 525.105469 977.925781 522.175781 975.875 518.398438 C 973.820312 514.625 972.792969 510.21875 972.792969 505.1875 C 972.792969 500.085938 973.820312 495.648438 975.875 491.871094 C 977.925781 488.097656 980.824219 485.152344 984.566406 483.027344 C 988.308594 480.914062 992.628906 479.851562 997.53125 479.851562 C 1002.5 479.851562 1006.835938 480.914062 1010.546875 483.027344 C 1014.253906 485.152344 1017.152344 488.097656 1019.238281 491.871094 C 1021.324219 495.648438 1022.367188 500.085938 1022.367188 505.1875 C 1022.367188 510.21875 1021.324219 514.625 1019.238281 518.398438 C 1017.152344 522.175781 1014.253906 525.105469 1010.546875 527.191406 C 1006.835938 529.277344 1002.5 530.320312 997.53125 530.320312 M 930.46875 498.128906 L 944.476562 498.128906 C 948.847656 498.128906 952.359375 496.941406 955.007812 494.554688 C 957.65625 492.171875 958.980469 488.859375 958.980469 484.617188 C 958.980469 480.117188 957.675781 476.722656 955.058594 474.4375 C 952.441406 472.152344 948.949219 471.007812 944.578125 471.007812 L 930.46875 471.007812 L 932.257812 468.722656 L 932.257812 529.328125 L 922.324219 529.328125 L 922.324219 461.671875 L 946.265625 461.671875 C 950.902344 461.671875 954.941406 462.699219 958.386719 464.75 C 961.828125 466.804688 964.511719 469.550781 966.433594 472.996094 C 968.355469 476.441406 969.316406 480.316406 969.316406 484.617188 C 969.316406 488.859375 968.355469 492.714844 966.433594 496.195312 C 964.511719 499.671875 961.816406 502.417969 958.335938 504.441406 C 954.859375 506.460938 950.800781 507.46875 946.167969 507.46875 L 930.46875 507.46875 Z M 930.46875 498.128906 "/></g><g class="pw-m"><path d="M 1869.539062 463.394531 L 1871.027344 463.394531 C 1871.246094 463.394531 1871.429688 463.480469 1871.578125 463.652344 C 1871.730469 463.820312 1871.804688 464.035156 1871.804688 464.292969 C 1871.804688 464.527344 1871.730469 464.730469 1871.578125 464.90625 C 1871.429688 465.082031 1871.246094 465.171875 1871.027344 465.171875 L 1869.539062 465.171875 Z M 1869.539062 469.988281 L 1869.539062 466.722656 L 1870.089844 466.722656 L 1872.007812 469.988281 L 1873.804688 469.988281 L 1871.804688 466.558594 C 1872.28125 466.410156 1872.660156 466.128906 1872.945312 465.714844 C 1873.234375 465.296875 1873.375 464.824219 1873.375 464.292969 C 1873.375 463.613281 1873.148438 463.03125 1872.691406 462.550781 C 1872.234375 462.066406 1871.679688 461.824219 1871.027344 461.824219 L 1867.964844 461.824219 L 1867.964844 469.988281 Z M 1867.109375 471.859375 C 1866.101562 471.253906 1865.292969 470.441406 1864.691406 469.429688 C 1864.082031 468.414062 1863.78125 467.296875 1863.78125 466.070312 C 1863.78125 464.847656 1864.082031 463.726562 1864.691406 462.710938 C 1865.292969 461.699219 1866.101562 460.890625 1867.109375 460.292969 C 1868.113281 459.695312 1869.230469 459.394531 1870.457031 459.394531 C 1871.695312 459.394531 1872.816406 459.695312 1873.824219 460.292969 C 1874.832031 460.890625 1875.636719 461.699219 1876.246094 462.710938 C 1876.847656 463.726562 1877.152344 464.847656 1877.152344 466.070312 C 1877.152344 467.296875 1876.847656 468.414062 1876.246094 469.429688 C 1875.636719 470.441406 1874.832031 471.253906 1873.824219 471.859375 C 1872.816406 472.464844 1871.695312 472.765625 1870.457031 472.765625 C 1869.230469 472.765625 1868.113281 472.464844 1867.109375 471.859375 M 1874.957031 473.785156 C 1876.3125 472.984375 1877.390625 471.90625 1878.195312 470.550781 C 1878.996094 469.195312 1879.398438 467.703125 1879.398438 466.070312 C 1879.398438 464.492188 1879.003906 463.027344 1878.214844 461.671875 C 1877.425781 460.316406 1876.355469 459.226562 1875.007812 458.394531 C 1873.660156 457.5625 1872.144531 457.148438 1870.457031 457.148438 C 1868.808594 457.148438 1867.3125 457.554688 1865.964844 458.363281 C 1864.617188 459.171875 1863.542969 460.257812 1862.738281 461.609375 C 1861.9375 462.964844 1861.535156 464.453125 1861.535156 466.070312 C 1861.535156 467.691406 1861.933594 469.175781 1862.730469 470.53125 C 1863.527344 471.886719 1864.597656 472.96875 1865.945312 473.777344 C 1867.292969 474.585938 1868.796875 475 1870.457031 475.011719 C 1872.101562 475 1873.605469 474.589844 1874.957031 473.785156 M 1763.023438 478.320312 L 1766.992188 474.347656 C 1768.050781 473.289062 1768.050781 471.574219 1766.992188 470.515625 L 1763.574219 467.097656 C 1762.515625 466.039062 1760.800781 466.039062 1759.738281 467.097656 L 1755.769531 471.066406 C 1754.710938 472.125 1754.710938 473.84375 1755.769531 474.902344 L 1759.1875 478.320312 C 1760.246094 479.378906 1761.960938 479.378906 1763.023438 478.320312 M 1766.902344 551.140625 L 1766.902344 489.949219 C 1766.902344 488.453125 1765.6875 487.238281 1764.1875 487.238281 L 1758.574219 487.238281 C 1757.074219 487.238281 1755.863281 488.453125 1755.863281 489.949219 L 1755.863281 551.140625 C 1755.863281 552.640625 1757.074219 553.851562 1758.574219 553.851562 L 1764.1875 553.851562 C 1765.6875 553.851562 1766.902344 552.640625 1766.902344 551.140625 M 1801.054688 515.632812 L 1852.390625 515.632812 C 1853.886719 515.632812 1855.101562 514.417969 1855.101562 512.921875 L 1855.101562 490.636719 C 1855.101562 489.882812 1854.789062 489.164062 1854.238281 488.652344 L 1847.675781 482.546875 C 1847.171875 482.082031 1846.515625 481.820312 1845.828125 481.820312 L 1801.054688 481.820312 C 1799.558594 481.820312 1798.34375 483.035156 1798.34375 484.53125 L 1798.34375 512.921875 C 1798.34375 514.417969 1799.558594 515.632812 1801.054688 515.632812 M 1852.015625 471.507812 L 1865.277344 483.84375 C 1865.828125 484.355469 1866.140625 485.078125 1866.140625 485.828125 L 1866.140625 551.140625 C 1866.140625 552.640625 1864.925781 553.851562 1863.429688 553.851562 L 1857.8125 553.851562 C 1856.316406 553.851562 1855.101562 552.640625 1855.101562 551.140625 L 1855.101562 529.382812 C 1855.101562 527.882812 1853.886719 526.671875 1852.390625 526.671875 L 1801.054688 526.671875 C 1799.558594 526.671875 1798.34375 527.882812 1798.34375 529.382812 L 1798.34375 551.109375 C 1798.34375 552.609375 1797.128906 553.824219 1795.632812 553.824219 L 1790.015625 553.824219 C 1788.519531 553.824219 1787.304688 552.609375 1787.304688 551.109375 L 1787.304688 473.492188 C 1787.304688 471.996094 1788.519531 470.78125 1790.015625 470.78125 L 1850.171875 470.78125 C 1850.855469 470.78125 1851.515625 471.042969 1852.015625 471.507812 M 1717.785156 470.78125 L 1636.179688 470.78125 C 1634.679688 470.78125 1633.464844 471.996094 1633.464844 473.492188 L 1633.464844 551.109375 C 1633.464844 552.609375 1634.679688 553.824219 1636.179688 553.824219 L 1641.792969 553.824219 C 1643.289062 553.824219 1644.503906 552.609375 1644.503906 551.109375 L 1644.503906 484.53125 C 1644.503906 483.035156 1645.71875 481.820312 1647.214844 481.820312 L 1675.363281 481.820312 C 1676.859375 481.820312 1678.074219 483.035156 1678.074219 484.53125 L 1678.074219 551.140625 C 1678.074219 552.640625 1679.289062 553.851562 1680.785156 553.851562 L 1686.402344 553.851562 C 1687.898438 553.851562 1689.113281 552.640625 1689.113281 551.140625 L 1689.113281 484.53125 C 1689.113281 483.035156 1690.328125 481.820312 1691.824219 481.820312 L 1713.449219 481.820312 C 1714.136719 481.820312 1714.792969 482.078125 1715.296875 482.546875 L 1721.769531 488.558594 C 1722.324219 489.070312 1722.636719 489.789062 1722.636719 490.542969 L 1722.636719 551.109375 C 1722.636719 552.609375 1723.851562 553.824219 1725.347656 553.824219 L 1730.964844 553.824219 C 1732.460938 553.824219 1733.675781 552.609375 1733.675781 551.109375 L 1733.675781 485.730469 C 1733.675781 484.976562 1733.363281 484.253906 1732.808594 483.742188 L 1719.632812 471.507812 C 1719.128906 471.039062 1718.46875 470.78125 1717.785156 470.78125 M 1487.976562 535.6875 C 1493.226562 543.015625 1500.230469 549.003906 1508.375 553.039062 L 1532.460938 517.363281 L 1556.722656 553.304688 C 1564.90625 549.359375 1571.960938 543.449219 1577.28125 536.191406 L 1532.460938 469.792969 Z M 1559.285156 563.050781 L 1532.4375 523.28125 L 1532.4375 523.285156 L 1532.433594 523.277344 L 1504.363281 564.859375 C 1512.945312 569.113281 1522.613281 571.507812 1532.84375 571.507812 C 1542.828125 571.507812 1552.28125 569.230469 1560.707031 565.167969 L 1559.28125 563.050781 C 1559.28125 563.050781 1559.28125 563.050781 1559.285156 563.050781 M 1597.078125 502.597656 C 1597.078125 516.796875 1592.46875 529.914062 1584.671875 540.546875 L 1532.453125 463.191406 L 1489.183594 527.289062 C 1489.175781 527.277344 1489.167969 527.269531 1489.160156 527.257812 L 1480.589844 539.957031 C 1473.050781 529.429688 1468.613281 516.535156 1468.613281 502.597656 C 1468.613281 467.125 1497.371094 438.367188 1532.84375 438.367188 C 1568.320312 438.367188 1597.078125 467.125 1597.078125 502.597656 "/></g></svg>';
+  /* the badge variant: the same marks, "Powered by MIA" set in a blue-outlined pill */
+  var PIPOL_BADGE =
+    '<svg role="img" aria-label="Pipol, powered by MIA" xmlns="http://www.w3.org/2000/svg" viewBox="42.895 47.898 1846 523.609"><g class="pw-p"><path d="M 862 188.84375 L 926.078125 188.84375 C 928.046875 188.84375 929.640625 190.441406 929.640625 192.410156 L 929.640625 398.921875 C 929.640625 400.890625 928.046875 402.484375 926.078125 402.484375 L 862 402.484375 C 860.03125 402.484375 858.4375 400.890625 858.4375 398.921875 L 858.4375 192.410156 C 858.4375 190.441406 860.03125 188.84375 862 188.84375 "/><path d="M 1499.328125 321.445312 C 1499.328125 326.871094 1494.921875 331.28125 1489.492188 331.28125 L 1366.730469 331.28125 C 1361.304688 331.28125 1356.894531 326.871094 1356.894531 321.445312 L 1356.894531 198.683594 C 1356.894531 193.253906 1361.304688 188.84375 1366.730469 188.84375 L 1489.492188 188.84375 C 1494.921875 188.84375 1499.328125 193.253906 1499.328125 198.683594 Z M 1360.972656 117.640625 C 1358.355469 117.640625 1355.875 118.6875 1354.027344 120.535156 L 1288.582031 185.980469 C 1286.738281 187.824219 1285.691406 190.332031 1285.691406 192.921875 L 1285.691406 327.203125 C 1285.691406 329.820312 1286.738281 332.300781 1288.582031 334.148438 L 1354.027344 399.59375 C 1355.875 401.4375 1358.382812 402.484375 1360.972656 402.484375 L 1495.25 402.484375 C 1497.871094 402.484375 1500.347656 401.4375 1502.195312 399.59375 L 1567.640625 334.148438 C 1569.488281 332.300781 1570.535156 329.792969 1570.535156 327.203125 L 1570.535156 192.921875 C 1570.535156 190.304688 1569.488281 187.824219 1567.640625 185.980469 L 1502.195312 120.535156 C 1500.347656 118.6875 1497.84375 117.640625 1495.25 117.640625 C 1495.25 117.640625 1360.972656 117.640625 1360.972656 117.640625 "/><path d="M 1687.207031 331.28125 C 1681.777344 331.28125 1677.367188 326.871094 1677.367188 321.441406 L 1677.367188 127.476562 C 1677.367188 122.050781 1672.957031 117.640625 1667.53125 117.640625 L 1616 117.640625 C 1610.574219 117.640625 1606.164062 122.050781 1606.164062 127.476562 L 1606.164062 327.203125 C 1606.164062 329.820312 1607.210938 332.300781 1609.058594 334.144531 L 1674.503906 399.589844 C 1676.347656 401.4375 1678.855469 402.484375 1681.445312 402.484375 L 1815.726562 402.484375 C 1818.34375 402.484375 1820.824219 401.4375 1822.667969 399.589844 L 1874.199219 348.0625 C 1880.398438 341.863281 1876.015625 331.28125 1867.253906 331.28125 Z M 1687.207031 331.28125 "/><path d="M 929.640625 165.121094 L 929.640625 127.476562 C 929.640625 122.050781 925.230469 117.640625 919.804688 117.640625 L 882.164062 117.640625 C 873.398438 117.640625 869.019531 128.222656 875.21875 134.421875 L 912.859375 172.0625 C 919.058594 178.265625 929.640625 173.882812 929.640625 165.121094 "/><path d="M 819.941406 185.980469 L 754.496094 120.535156 C 752.652344 118.6875 750.144531 117.640625 747.550781 117.640625 L 547.828125 117.640625 C 542.398438 117.640625 537.992188 122.050781 537.992188 127.476562 L 537.992188 392.648438 C 537.992188 398.074219 542.398438 402.484375 547.828125 402.484375 L 599.355469 402.484375 C 604.785156 402.484375 609.195312 398.074219 609.195312 392.648438 L 609.195312 198.683594 C 609.195312 193.253906 613.605469 188.84375 619.03125 188.84375 L 741.792969 188.84375 C 747.222656 188.84375 751.632812 193.253906 751.632812 198.683594 L 751.632812 249.824219 C 751.632812 255.253906 747.222656 259.664062 741.792969 259.664062 L 654.632812 259.664062 C 649.207031 259.664062 644.796875 264.074219 644.796875 269.5 L 644.796875 321.03125 C 644.796875 326.457031 649.207031 330.867188 654.632812 330.867188 L 747.550781 330.867188 C 750.171875 330.867188 752.652344 329.820312 754.496094 327.972656 L 819.941406 262.527344 C 821.789062 260.683594 822.808594 258.175781 822.808594 255.585938 L 822.808594 192.921875 C 822.808594 190.304688 821.761719 187.824219 819.914062 185.980469 Z M 819.941406 185.980469 "/><path d="M 1247.222656 185.980469 L 1181.777344 120.535156 C 1179.929688 118.6875 1177.421875 117.640625 1174.832031 117.640625 L 975.109375 117.640625 C 969.679688 117.640625 965.269531 122.050781 965.269531 127.476562 L 965.269531 392.648438 C 965.269531 398.074219 969.679688 402.484375 975.109375 402.484375 L 1026.636719 402.484375 C 1032.066406 402.484375 1036.476562 398.074219 1036.476562 392.648438 L 1036.476562 198.683594 C 1036.476562 193.253906 1040.882812 188.84375 1046.3125 188.84375 L 1169.074219 188.84375 C 1174.503906 188.84375 1178.910156 193.253906 1178.910156 198.683594 L 1178.910156 249.824219 C 1178.910156 255.253906 1174.503906 259.664062 1169.074219 259.664062 L 1081.914062 259.664062 C 1076.484375 259.664062 1072.078125 264.074219 1072.078125 269.5 L 1072.078125 321.03125 C 1072.078125 326.457031 1076.484375 330.867188 1081.914062 330.867188 L 1174.832031 330.867188 C 1177.449219 330.867188 1179.929688 329.820312 1181.777344 327.972656 L 1247.222656 262.527344 C 1249.066406 260.683594 1250.085938 258.175781 1250.085938 255.585938 L 1250.085938 192.921875 C 1250.085938 190.304688 1249.042969 187.824219 1247.195312 185.980469 Z M 1247.222656 185.980469 "/><path d="M 461.027344 183.71875 L 330.9375 53.628906 C 327.273438 49.964844 322.285156 47.898438 317.105469 47.898438 L 190.511719 47.898438 C 186.628906 47.898438 182.90625 49.441406 180.152344 52.195312 L 47.195312 185.152344 C 44.441406 187.90625 42.894531 191.628906 42.894531 195.511719 L 42.894531 310.945312 C 42.894531 321.746094 51.660156 330.480469 62.433594 330.480469 L 184.421875 330.480469 L 184.421875 208.988281 C 184.421875 198.1875 193.1875 189.453125 203.960938 189.453125 L 305.613281 189.453125 C 316.414062 189.453125 325.175781 198.214844 325.175781 209.015625 L 325.175781 310.667969 C 325.175781 321.472656 316.414062 330.207031 305.640625 330.207031 L 184.421875 330.675781 L 184.421875 452.691406 C 184.421875 463.492188 193.1875 472.226562 203.988281 472.226562 L 319.722656 471.925781 C 323.550781 471.925781 327.21875 470.410156 329.945312 467.738281 L 462.351562 337.730469 C 465.160156 334.972656 466.761719 331.199219 466.761719 327.257812 L 466.761719 197.550781 C 466.761719 192.371094 464.691406 187.386719 461.027344 183.71875 Z M 461.027344 183.71875 "/></g><rect class="pw-pill" x="1222" y="450" width="662" height="110" rx="55" stroke-width="6"/><g transform="translate(684.40 192.21) scale(0.62)"><g class="pw-by"><path d="M 1378.035156 548.203125 L 1408.632812 480.84375 L 1419.066406 480.84375 L 1388.46875 548.203125 Z M 1390.753906 523.167969 L 1371.578125 480.84375 L 1382.011719 480.84375 L 1398.996094 518.300781 Z M 1345.351562 521.777344 C 1349.453125 521.777344 1352.765625 520.234375 1355.285156 517.15625 C 1357.800781 514.078125 1359.058594 510.019531 1359.058594 504.988281 C 1359.058594 500.019531 1357.800781 496.011719 1355.285156 492.964844 C 1352.765625 489.917969 1349.453125 488.394531 1345.351562 488.394531 C 1341.308594 488.394531 1338.027344 489.917969 1335.511719 492.964844 C 1332.996094 496.011719 1331.738281 500.054688 1331.738281 505.085938 C 1331.738281 510.121094 1332.996094 514.160156 1335.511719 517.207031 C 1338.027344 520.253906 1341.308594 521.777344 1345.351562 521.777344 M 1346.839844 530.320312 C 1342.46875 530.320312 1338.65625 529.261719 1335.414062 527.140625 C 1332.167969 525.023438 1329.636719 522.058594 1327.8125 518.25 C 1325.992188 514.441406 1325.082031 510.019531 1325.082031 504.988281 C 1325.082031 499.953125 1325.992188 495.546875 1327.8125 491.773438 C 1329.636719 487.996094 1332.167969 485.066406 1335.414062 482.980469 C 1338.65625 480.894531 1342.46875 479.851562 1346.839844 479.851562 C 1351.34375 479.851562 1355.265625 480.894531 1358.609375 482.980469 C 1361.953125 485.066406 1364.554688 487.996094 1366.410156 491.773438 C 1368.265625 495.546875 1369.191406 499.953125 1369.191406 504.988281 C 1369.191406 510.019531 1368.265625 514.441406 1366.410156 518.25 C 1364.554688 522.058594 1361.953125 525.023438 1358.609375 527.140625 C 1355.265625 529.261719 1351.34375 530.320312 1346.839844 530.320312 M 1322.296875 529.328125 L 1322.296875 461.671875 L 1332.234375 461.671875 L 1332.234375 491.972656 L 1331.242188 491.972656 L 1331.242188 519.589844 L 1332.234375 519.589844 L 1329.851562 529.328125 Z M 1276.203125 529.328125 L 1273.820312 519.589844 L 1274.8125 519.589844 L 1274.8125 491.972656 L 1273.820312 491.972656 L 1273.820312 461.671875 L 1283.753906 461.671875 L 1283.753906 529.328125 Z M 1260.707031 521.777344 C 1264.8125 521.777344 1268.105469 520.253906 1270.589844 517.207031 C 1273.074219 514.160156 1274.316406 510.121094 1274.316406 505.085938 C 1274.316406 500.054688 1273.074219 496.011719 1270.589844 492.964844 C 1268.105469 489.917969 1264.8125 488.394531 1260.707031 488.394531 C 1256.597656 488.394531 1253.285156 489.917969 1250.769531 492.964844 C 1248.25 496.011719 1246.996094 500.019531 1246.996094 504.988281 C 1246.996094 510.019531 1248.25 514.078125 1250.769531 517.15625 C 1253.285156 520.234375 1256.597656 521.777344 1260.707031 521.777344 M 1259.214844 530.320312 C 1254.777344 530.320312 1250.867188 529.261719 1247.492188 527.140625 C 1244.113281 525.023438 1241.496094 522.058594 1239.644531 518.25 C 1237.789062 514.441406 1236.859375 510.019531 1236.859375 504.988281 C 1236.859375 499.953125 1237.789062 495.546875 1239.644531 491.773438 C 1241.496094 487.996094 1244.113281 485.066406 1247.492188 482.980469 C 1250.867188 480.894531 1254.777344 479.851562 1259.214844 479.851562 C 1263.585938 479.851562 1267.394531 480.894531 1270.640625 482.980469 C 1273.882812 485.066406 1276.417969 487.996094 1278.238281 491.773438 C 1280.058594 495.546875 1280.972656 499.953125 1280.972656 504.988281 C 1280.972656 510.019531 1280.058594 514.441406 1278.238281 518.25 C 1276.417969 522.058594 1273.882812 525.023438 1270.640625 527.140625 C 1267.394531 529.261719 1263.585938 530.320312 1259.214844 530.320312 M 1206.660156 530.320312 C 1201.957031 530.320312 1197.816406 529.277344 1194.238281 527.191406 C 1190.664062 525.105469 1187.882812 522.175781 1185.894531 518.398438 C 1183.910156 514.625 1182.914062 510.21875 1182.914062 505.1875 C 1182.914062 500.085938 1183.910156 495.648438 1185.894531 491.871094 C 1187.882812 488.097656 1190.664062 485.152344 1194.238281 483.027344 C 1197.816406 480.914062 1201.957031 479.851562 1206.660156 479.851562 C 1211.425781 479.851562 1215.601562 480.914062 1219.175781 483.027344 C 1222.753906 485.152344 1225.535156 488.097656 1227.523438 491.871094 C 1229.511719 495.648438 1230.503906 500.085938 1230.503906 505.1875 C 1230.503906 505.648438 1230.484375 506.128906 1230.453125 506.625 C 1230.417969 507.121094 1230.367188 507.570312 1230.304688 507.96875 L 1192.351562 507.96875 L 1192.351562 499.421875 L 1223.152344 499.421875 L 1220.371094 505.1875 C 1220.371094 500.152344 1219.242188 496.011719 1216.992188 492.765625 C 1214.738281 489.523438 1211.292969 487.898438 1206.660156 487.898438 C 1202.550781 487.898438 1199.273438 489.207031 1196.824219 491.824219 C 1194.371094 494.4375 1193.148438 497.867188 1193.148438 502.105469 L 1193.148438 507.269531 C 1193.148438 511.710938 1194.339844 515.238281 1196.722656 517.851562 C 1199.109375 520.46875 1202.421875 521.777344 1206.660156 521.777344 C 1210.566406 521.777344 1213.578125 520.949219 1215.699219 519.292969 C 1217.816406 517.636719 1219.675781 515.582031 1221.265625 513.132812 L 1228.714844 517.800781 C 1226.460938 521.972656 1223.566406 525.105469 1220.019531 527.191406 C 1216.476562 529.277344 1212.023438 530.320312 1206.660156 530.320312 M 1163.542969 498.03125 L 1161.160156 496.941406 L 1161.160156 489.6875 L 1162.050781 488.59375 C 1162.714844 487.402344 1163.757812 486.125 1165.183594 484.769531 C 1166.605469 483.410156 1168.277344 482.253906 1170.199219 481.292969 C 1172.121094 480.332031 1174.074219 479.851562 1176.058594 479.851562 C 1177.054688 479.851562 1177.996094 479.917969 1178.890625 480.050781 C 1179.785156 480.183594 1180.464844 480.414062 1180.929688 480.746094 L 1180.929688 489.6875 L 1177.847656 489.6875 C 1173.34375 489.6875 1170.066406 490.367188 1168.011719 491.722656 C 1165.960938 493.082031 1164.46875 495.183594 1163.542969 498.03125 M 1162.648438 480.84375 L 1165.03125 493.960938 L 1165.03125 529.328125 L 1155.097656 529.328125 L 1155.097656 480.84375 Z M 1121.914062 530.320312 C 1117.210938 530.320312 1113.074219 529.277344 1109.496094 527.191406 C 1105.921875 525.105469 1103.140625 522.175781 1101.152344 518.398438 C 1099.164062 514.625 1098.171875 510.21875 1098.171875 505.1875 C 1098.171875 500.085938 1099.164062 495.648438 1101.152344 491.871094 C 1103.140625 488.097656 1105.921875 485.152344 1109.496094 483.027344 C 1113.074219 480.914062 1117.210938 479.851562 1121.914062 479.851562 C 1126.683594 479.851562 1130.859375 480.914062 1134.433594 483.027344 C 1138.007812 485.152344 1140.792969 488.097656 1142.777344 491.871094 C 1144.765625 495.648438 1145.757812 500.085938 1145.757812 505.1875 C 1145.757812 505.648438 1145.742188 506.128906 1145.707031 506.625 C 1145.675781 507.121094 1145.625 507.570312 1145.5625 507.96875 L 1107.609375 507.96875 L 1107.609375 499.421875 L 1138.40625 499.421875 L 1135.625 505.1875 C 1135.625 500.152344 1134.5 496.011719 1132.25 492.765625 C 1129.996094 489.523438 1126.550781 487.898438 1121.914062 487.898438 C 1117.808594 487.898438 1114.527344 489.207031 1112.082031 491.824219 C 1109.628906 494.4375 1108.402344 497.867188 1108.402344 502.105469 L 1108.402344 507.269531 C 1108.402344 511.710938 1109.597656 515.238281 1111.980469 517.851562 C 1114.363281 520.46875 1117.675781 521.777344 1121.914062 521.777344 C 1125.824219 521.777344 1128.835938 520.949219 1130.957031 519.292969 C 1133.074219 517.636719 1134.929688 515.582031 1136.519531 513.132812 L 1143.972656 517.800781 C 1141.71875 521.972656 1138.820312 525.105469 1135.277344 527.191406 C 1131.734375 529.277344 1127.28125 530.320312 1121.914062 530.320312 M 1040.449219 529.328125 L 1025.148438 480.84375 L 1035.082031 480.84375 L 1045.117188 516.511719 L 1044.222656 516.511719 L 1055.550781 480.84375 L 1064.589844 480.84375 L 1075.917969 516.511719 L 1075.023438 516.511719 L 1085.054688 480.84375 L 1094.992188 480.84375 L 1079.691406 529.328125 L 1071.246094 529.328125 L 1059.226562 491.476562 L 1060.914062 491.476562 L 1048.894531 529.328125 Z M 997.53125 520.785156 C 1001.96875 520.785156 1005.527344 519.339844 1008.210938 516.460938 C 1010.894531 513.582031 1012.234375 509.824219 1012.234375 505.1875 C 1012.234375 500.484375 1010.894531 496.675781 1008.210938 493.757812 C 1005.527344 490.847656 1001.96875 489.390625 997.53125 489.390625 C 993.160156 489.390625 989.632812 490.828125 986.949219 493.710938 C 984.265625 496.589844 982.925781 500.382812 982.925781 505.085938 C 982.925781 509.789062 984.265625 513.582031 986.949219 516.460938 C 989.632812 519.339844 993.160156 520.785156 997.53125 520.785156 M 997.53125 530.320312 C 992.628906 530.320312 988.308594 529.277344 984.566406 527.191406 C 980.824219 525.105469 977.925781 522.175781 975.875 518.398438 C 973.820312 514.625 972.792969 510.21875 972.792969 505.1875 C 972.792969 500.085938 973.820312 495.648438 975.875 491.871094 C 977.925781 488.097656 980.824219 485.152344 984.566406 483.027344 C 988.308594 480.914062 992.628906 479.851562 997.53125 479.851562 C 1002.5 479.851562 1006.835938 480.914062 1010.546875 483.027344 C 1014.253906 485.152344 1017.152344 488.097656 1019.238281 491.871094 C 1021.324219 495.648438 1022.367188 500.085938 1022.367188 505.1875 C 1022.367188 510.21875 1021.324219 514.625 1019.238281 518.398438 C 1017.152344 522.175781 1014.253906 525.105469 1010.546875 527.191406 C 1006.835938 529.277344 1002.5 530.320312 997.53125 530.320312 M 930.46875 498.128906 L 944.476562 498.128906 C 948.847656 498.128906 952.359375 496.941406 955.007812 494.554688 C 957.65625 492.171875 958.980469 488.859375 958.980469 484.617188 C 958.980469 480.117188 957.675781 476.722656 955.058594 474.4375 C 952.441406 472.152344 948.949219 471.007812 944.578125 471.007812 L 930.46875 471.007812 L 932.257812 468.722656 L 932.257812 529.328125 L 922.324219 529.328125 L 922.324219 461.671875 L 946.265625 461.671875 C 950.902344 461.671875 954.941406 462.699219 958.386719 464.75 C 961.828125 466.804688 964.511719 469.550781 966.433594 472.996094 C 968.355469 476.441406 969.316406 480.316406 969.316406 484.617188 C 969.316406 488.859375 968.355469 492.714844 966.433594 496.195312 C 964.511719 499.671875 961.816406 502.417969 958.335938 504.441406 C 954.859375 506.460938 950.800781 507.46875 946.167969 507.46875 L 930.46875 507.46875 Z M 930.46875 498.128906 "/></g><g class="pw-m"><path d="M 1869.539062 463.394531 L 1871.027344 463.394531 C 1871.246094 463.394531 1871.429688 463.480469 1871.578125 463.652344 C 1871.730469 463.820312 1871.804688 464.035156 1871.804688 464.292969 C 1871.804688 464.527344 1871.730469 464.730469 1871.578125 464.90625 C 1871.429688 465.082031 1871.246094 465.171875 1871.027344 465.171875 L 1869.539062 465.171875 Z M 1869.539062 469.988281 L 1869.539062 466.722656 L 1870.089844 466.722656 L 1872.007812 469.988281 L 1873.804688 469.988281 L 1871.804688 466.558594 C 1872.28125 466.410156 1872.660156 466.128906 1872.945312 465.714844 C 1873.234375 465.296875 1873.375 464.824219 1873.375 464.292969 C 1873.375 463.613281 1873.148438 463.03125 1872.691406 462.550781 C 1872.234375 462.066406 1871.679688 461.824219 1871.027344 461.824219 L 1867.964844 461.824219 L 1867.964844 469.988281 Z M 1867.109375 471.859375 C 1866.101562 471.253906 1865.292969 470.441406 1864.691406 469.429688 C 1864.082031 468.414062 1863.78125 467.296875 1863.78125 466.070312 C 1863.78125 464.847656 1864.082031 463.726562 1864.691406 462.710938 C 1865.292969 461.699219 1866.101562 460.890625 1867.109375 460.292969 C 1868.113281 459.695312 1869.230469 459.394531 1870.457031 459.394531 C 1871.695312 459.394531 1872.816406 459.695312 1873.824219 460.292969 C 1874.832031 460.890625 1875.636719 461.699219 1876.246094 462.710938 C 1876.847656 463.726562 1877.152344 464.847656 1877.152344 466.070312 C 1877.152344 467.296875 1876.847656 468.414062 1876.246094 469.429688 C 1875.636719 470.441406 1874.832031 471.253906 1873.824219 471.859375 C 1872.816406 472.464844 1871.695312 472.765625 1870.457031 472.765625 C 1869.230469 472.765625 1868.113281 472.464844 1867.109375 471.859375 M 1874.957031 473.785156 C 1876.3125 472.984375 1877.390625 471.90625 1878.195312 470.550781 C 1878.996094 469.195312 1879.398438 467.703125 1879.398438 466.070312 C 1879.398438 464.492188 1879.003906 463.027344 1878.214844 461.671875 C 1877.425781 460.316406 1876.355469 459.226562 1875.007812 458.394531 C 1873.660156 457.5625 1872.144531 457.148438 1870.457031 457.148438 C 1868.808594 457.148438 1867.3125 457.554688 1865.964844 458.363281 C 1864.617188 459.171875 1863.542969 460.257812 1862.738281 461.609375 C 1861.9375 462.964844 1861.535156 464.453125 1861.535156 466.070312 C 1861.535156 467.691406 1861.933594 469.175781 1862.730469 470.53125 C 1863.527344 471.886719 1864.597656 472.96875 1865.945312 473.777344 C 1867.292969 474.585938 1868.796875 475 1870.457031 475.011719 C 1872.101562 475 1873.605469 474.589844 1874.957031 473.785156 M 1763.023438 478.320312 L 1766.992188 474.347656 C 1768.050781 473.289062 1768.050781 471.574219 1766.992188 470.515625 L 1763.574219 467.097656 C 1762.515625 466.039062 1760.800781 466.039062 1759.738281 467.097656 L 1755.769531 471.066406 C 1754.710938 472.125 1754.710938 473.84375 1755.769531 474.902344 L 1759.1875 478.320312 C 1760.246094 479.378906 1761.960938 479.378906 1763.023438 478.320312 M 1766.902344 551.140625 L 1766.902344 489.949219 C 1766.902344 488.453125 1765.6875 487.238281 1764.1875 487.238281 L 1758.574219 487.238281 C 1757.074219 487.238281 1755.863281 488.453125 1755.863281 489.949219 L 1755.863281 551.140625 C 1755.863281 552.640625 1757.074219 553.851562 1758.574219 553.851562 L 1764.1875 553.851562 C 1765.6875 553.851562 1766.902344 552.640625 1766.902344 551.140625 M 1801.054688 515.632812 L 1852.390625 515.632812 C 1853.886719 515.632812 1855.101562 514.417969 1855.101562 512.921875 L 1855.101562 490.636719 C 1855.101562 489.882812 1854.789062 489.164062 1854.238281 488.652344 L 1847.675781 482.546875 C 1847.171875 482.082031 1846.515625 481.820312 1845.828125 481.820312 L 1801.054688 481.820312 C 1799.558594 481.820312 1798.34375 483.035156 1798.34375 484.53125 L 1798.34375 512.921875 C 1798.34375 514.417969 1799.558594 515.632812 1801.054688 515.632812 M 1852.015625 471.507812 L 1865.277344 483.84375 C 1865.828125 484.355469 1866.140625 485.078125 1866.140625 485.828125 L 1866.140625 551.140625 C 1866.140625 552.640625 1864.925781 553.851562 1863.429688 553.851562 L 1857.8125 553.851562 C 1856.316406 553.851562 1855.101562 552.640625 1855.101562 551.140625 L 1855.101562 529.382812 C 1855.101562 527.882812 1853.886719 526.671875 1852.390625 526.671875 L 1801.054688 526.671875 C 1799.558594 526.671875 1798.34375 527.882812 1798.34375 529.382812 L 1798.34375 551.109375 C 1798.34375 552.609375 1797.128906 553.824219 1795.632812 553.824219 L 1790.015625 553.824219 C 1788.519531 553.824219 1787.304688 552.609375 1787.304688 551.109375 L 1787.304688 473.492188 C 1787.304688 471.996094 1788.519531 470.78125 1790.015625 470.78125 L 1850.171875 470.78125 C 1850.855469 470.78125 1851.515625 471.042969 1852.015625 471.507812 M 1717.785156 470.78125 L 1636.179688 470.78125 C 1634.679688 470.78125 1633.464844 471.996094 1633.464844 473.492188 L 1633.464844 551.109375 C 1633.464844 552.609375 1634.679688 553.824219 1636.179688 553.824219 L 1641.792969 553.824219 C 1643.289062 553.824219 1644.503906 552.609375 1644.503906 551.109375 L 1644.503906 484.53125 C 1644.503906 483.035156 1645.71875 481.820312 1647.214844 481.820312 L 1675.363281 481.820312 C 1676.859375 481.820312 1678.074219 483.035156 1678.074219 484.53125 L 1678.074219 551.140625 C 1678.074219 552.640625 1679.289062 553.851562 1680.785156 553.851562 L 1686.402344 553.851562 C 1687.898438 553.851562 1689.113281 552.640625 1689.113281 551.140625 L 1689.113281 484.53125 C 1689.113281 483.035156 1690.328125 481.820312 1691.824219 481.820312 L 1713.449219 481.820312 C 1714.136719 481.820312 1714.792969 482.078125 1715.296875 482.546875 L 1721.769531 488.558594 C 1722.324219 489.070312 1722.636719 489.789062 1722.636719 490.542969 L 1722.636719 551.109375 C 1722.636719 552.609375 1723.851562 553.824219 1725.347656 553.824219 L 1730.964844 553.824219 C 1732.460938 553.824219 1733.675781 552.609375 1733.675781 551.109375 L 1733.675781 485.730469 C 1733.675781 484.976562 1733.363281 484.253906 1732.808594 483.742188 L 1719.632812 471.507812 C 1719.128906 471.039062 1718.46875 470.78125 1717.785156 470.78125 M 1487.976562 535.6875 C 1493.226562 543.015625 1500.230469 549.003906 1508.375 553.039062 L 1532.460938 517.363281 L 1556.722656 553.304688 C 1564.90625 549.359375 1571.960938 543.449219 1577.28125 536.191406 L 1532.460938 469.792969 Z M 1559.285156 563.050781 L 1532.4375 523.28125 L 1532.4375 523.285156 L 1532.433594 523.277344 L 1504.363281 564.859375 C 1512.945312 569.113281 1522.613281 571.507812 1532.84375 571.507812 C 1542.828125 571.507812 1552.28125 569.230469 1560.707031 565.167969 L 1559.28125 563.050781 C 1559.28125 563.050781 1559.28125 563.050781 1559.285156 563.050781 M 1597.078125 502.597656 C 1597.078125 516.796875 1592.46875 529.914062 1584.671875 540.546875 L 1532.453125 463.191406 L 1489.183594 527.289062 C 1489.175781 527.277344 1489.167969 527.269531 1489.160156 527.257812 L 1480.589844 539.957031 C 1473.050781 529.429688 1468.613281 516.535156 1468.613281 502.597656 C 1468.613281 467.125 1497.371094 438.367188 1532.84375 438.367188 C 1568.320312 438.367188 1597.078125 467.125 1597.078125 502.597656 "/></g></g></svg>';
+  var PIPOL_ISO =
+    '<svg class="iso" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="42.895 47.898 423.867 424.328" fill="currentColor"><path d="M 461.027344 183.71875 L 330.9375 53.628906 C 327.273438 49.964844 322.285156 47.898438 317.105469 47.898438 L 190.511719 47.898438 C 186.628906 47.898438 182.90625 49.441406 180.152344 52.195312 L 47.195312 185.152344 C 44.441406 187.90625 42.894531 191.628906 42.894531 195.511719 L 42.894531 310.945312 C 42.894531 321.746094 51.660156 330.480469 62.433594 330.480469 L 184.421875 330.480469 L 184.421875 208.988281 C 184.421875 198.1875 193.1875 189.453125 203.960938 189.453125 L 305.613281 189.453125 C 316.414062 189.453125 325.175781 198.214844 325.175781 209.015625 L 325.175781 310.667969 C 325.175781 321.472656 316.414062 330.207031 305.640625 330.207031 L 184.421875 330.675781 L 184.421875 452.691406 C 184.421875 463.492188 193.1875 472.226562 203.988281 472.226562 L 319.722656 471.925781 C 323.550781 471.925781 327.21875 470.410156 329.945312 467.738281 L 462.351562 337.730469 C 465.160156 334.972656 466.761719 331.199219 466.761719 327.257812 L 466.761719 197.550781 C 466.761719 192.371094 464.691406 187.386719 461.027344 183.71875 Z M 461.027344 183.71875 "/></svg>';
+  var MIA_MARK =
+    '<svg role="img" aria-label="MIA" xmlns="http://www.w3.org/2000/svg" viewBox="1468.6 438.3 410.8 133.2" fill="currentColor"><g class="pw-m"><path d="M 1869.539062 463.394531 L 1871.027344 463.394531 C 1871.246094 463.394531 1871.429688 463.480469 1871.578125 463.652344 C 1871.730469 463.820312 1871.804688 464.035156 1871.804688 464.292969 C 1871.804688 464.527344 1871.730469 464.730469 1871.578125 464.90625 C 1871.429688 465.082031 1871.246094 465.171875 1871.027344 465.171875 L 1869.539062 465.171875 Z M 1869.539062 469.988281 L 1869.539062 466.722656 L 1870.089844 466.722656 L 1872.007812 469.988281 L 1873.804688 469.988281 L 1871.804688 466.558594 C 1872.28125 466.410156 1872.660156 466.128906 1872.945312 465.714844 C 1873.234375 465.296875 1873.375 464.824219 1873.375 464.292969 C 1873.375 463.613281 1873.148438 463.03125 1872.691406 462.550781 C 1872.234375 462.066406 1871.679688 461.824219 1871.027344 461.824219 L 1867.964844 461.824219 L 1867.964844 469.988281 Z M 1867.109375 471.859375 C 1866.101562 471.253906 1865.292969 470.441406 1864.691406 469.429688 C 1864.082031 468.414062 1863.78125 467.296875 1863.78125 466.070312 C 1863.78125 464.847656 1864.082031 463.726562 1864.691406 462.710938 C 1865.292969 461.699219 1866.101562 460.890625 1867.109375 460.292969 C 1868.113281 459.695312 1869.230469 459.394531 1870.457031 459.394531 C 1871.695312 459.394531 1872.816406 459.695312 1873.824219 460.292969 C 1874.832031 460.890625 1875.636719 461.699219 1876.246094 462.710938 C 1876.847656 463.726562 1877.152344 464.847656 1877.152344 466.070312 C 1877.152344 467.296875 1876.847656 468.414062 1876.246094 469.429688 C 1875.636719 470.441406 1874.832031 471.253906 1873.824219 471.859375 C 1872.816406 472.464844 1871.695312 472.765625 1870.457031 472.765625 C 1869.230469 472.765625 1868.113281 472.464844 1867.109375 471.859375 M 1874.957031 473.785156 C 1876.3125 472.984375 1877.390625 471.90625 1878.195312 470.550781 C 1878.996094 469.195312 1879.398438 467.703125 1879.398438 466.070312 C 1879.398438 464.492188 1879.003906 463.027344 1878.214844 461.671875 C 1877.425781 460.316406 1876.355469 459.226562 1875.007812 458.394531 C 1873.660156 457.5625 1872.144531 457.148438 1870.457031 457.148438 C 1868.808594 457.148438 1867.3125 457.554688 1865.964844 458.363281 C 1864.617188 459.171875 1863.542969 460.257812 1862.738281 461.609375 C 1861.9375 462.964844 1861.535156 464.453125 1861.535156 466.070312 C 1861.535156 467.691406 1861.933594 469.175781 1862.730469 470.53125 C 1863.527344 471.886719 1864.597656 472.96875 1865.945312 473.777344 C 1867.292969 474.585938 1868.796875 475 1870.457031 475.011719 C 1872.101562 475 1873.605469 474.589844 1874.957031 473.785156 M 1763.023438 478.320312 L 1766.992188 474.347656 C 1768.050781 473.289062 1768.050781 471.574219 1766.992188 470.515625 L 1763.574219 467.097656 C 1762.515625 466.039062 1760.800781 466.039062 1759.738281 467.097656 L 1755.769531 471.066406 C 1754.710938 472.125 1754.710938 473.84375 1755.769531 474.902344 L 1759.1875 478.320312 C 1760.246094 479.378906 1761.960938 479.378906 1763.023438 478.320312 M 1766.902344 551.140625 L 1766.902344 489.949219 C 1766.902344 488.453125 1765.6875 487.238281 1764.1875 487.238281 L 1758.574219 487.238281 C 1757.074219 487.238281 1755.863281 488.453125 1755.863281 489.949219 L 1755.863281 551.140625 C 1755.863281 552.640625 1757.074219 553.851562 1758.574219 553.851562 L 1764.1875 553.851562 C 1765.6875 553.851562 1766.902344 552.640625 1766.902344 551.140625 M 1801.054688 515.632812 L 1852.390625 515.632812 C 1853.886719 515.632812 1855.101562 514.417969 1855.101562 512.921875 L 1855.101562 490.636719 C 1855.101562 489.882812 1854.789062 489.164062 1854.238281 488.652344 L 1847.675781 482.546875 C 1847.171875 482.082031 1846.515625 481.820312 1845.828125 481.820312 L 1801.054688 481.820312 C 1799.558594 481.820312 1798.34375 483.035156 1798.34375 484.53125 L 1798.34375 512.921875 C 1798.34375 514.417969 1799.558594 515.632812 1801.054688 515.632812 M 1852.015625 471.507812 L 1865.277344 483.84375 C 1865.828125 484.355469 1866.140625 485.078125 1866.140625 485.828125 L 1866.140625 551.140625 C 1866.140625 552.640625 1864.925781 553.851562 1863.429688 553.851562 L 1857.8125 553.851562 C 1856.316406 553.851562 1855.101562 552.640625 1855.101562 551.140625 L 1855.101562 529.382812 C 1855.101562 527.882812 1853.886719 526.671875 1852.390625 526.671875 L 1801.054688 526.671875 C 1799.558594 526.671875 1798.34375 527.882812 1798.34375 529.382812 L 1798.34375 551.109375 C 1798.34375 552.609375 1797.128906 553.824219 1795.632812 553.824219 L 1790.015625 553.824219 C 1788.519531 553.824219 1787.304688 552.609375 1787.304688 551.109375 L 1787.304688 473.492188 C 1787.304688 471.996094 1788.519531 470.78125 1790.015625 470.78125 L 1850.171875 470.78125 C 1850.855469 470.78125 1851.515625 471.042969 1852.015625 471.507812 M 1717.785156 470.78125 L 1636.179688 470.78125 C 1634.679688 470.78125 1633.464844 471.996094 1633.464844 473.492188 L 1633.464844 551.109375 C 1633.464844 552.609375 1634.679688 553.824219 1636.179688 553.824219 L 1641.792969 553.824219 C 1643.289062 553.824219 1644.503906 552.609375 1644.503906 551.109375 L 1644.503906 484.53125 C 1644.503906 483.035156 1645.71875 481.820312 1647.214844 481.820312 L 1675.363281 481.820312 C 1676.859375 481.820312 1678.074219 483.035156 1678.074219 484.53125 L 1678.074219 551.140625 C 1678.074219 552.640625 1679.289062 553.851562 1680.785156 553.851562 L 1686.402344 553.851562 C 1687.898438 553.851562 1689.113281 552.640625 1689.113281 551.140625 L 1689.113281 484.53125 C 1689.113281 483.035156 1690.328125 481.820312 1691.824219 481.820312 L 1713.449219 481.820312 C 1714.136719 481.820312 1714.792969 482.078125 1715.296875 482.546875 L 1721.769531 488.558594 C 1722.324219 489.070312 1722.636719 489.789062 1722.636719 490.542969 L 1722.636719 551.109375 C 1722.636719 552.609375 1723.851562 553.824219 1725.347656 553.824219 L 1730.964844 553.824219 C 1732.460938 553.824219 1733.675781 552.609375 1733.675781 551.109375 L 1733.675781 485.730469 C 1733.675781 484.976562 1733.363281 484.253906 1732.808594 483.742188 L 1719.632812 471.507812 C 1719.128906 471.039062 1718.46875 470.78125 1717.785156 470.78125 M 1487.976562 535.6875 C 1493.226562 543.015625 1500.230469 549.003906 1508.375 553.039062 L 1532.460938 517.363281 L 1556.722656 553.304688 C 1564.90625 549.359375 1571.960938 543.449219 1577.28125 536.191406 L 1532.460938 469.792969 Z M 1559.285156 563.050781 L 1532.4375 523.28125 L 1532.4375 523.285156 L 1532.433594 523.277344 L 1504.363281 564.859375 C 1512.945312 569.113281 1522.613281 571.507812 1532.84375 571.507812 C 1542.828125 571.507812 1552.28125 569.230469 1560.707031 565.167969 L 1559.28125 563.050781 C 1559.28125 563.050781 1559.28125 563.050781 1559.285156 563.050781 M 1597.078125 502.597656 C 1597.078125 516.796875 1592.46875 529.914062 1584.671875 540.546875 L 1532.453125 463.191406 L 1489.183594 527.289062 C 1489.175781 527.277344 1489.167969 527.269531 1489.160156 527.257812 L 1480.589844 539.957031 C 1473.050781 529.429688 1468.613281 516.535156 1468.613281 502.597656 C 1468.613281 467.125 1497.371094 438.367188 1532.84375 438.367188 C 1568.320312 438.367188 1597.078125 467.125 1597.078125 502.597656 "/></g></svg>';
+
+  /* Built-in icon set: 24x24, stroke = currentColor. <i class="ic" data-i="chart"></i> */
+  var ICONS = {
+    chart: '<path d="M3 3v18h18"/><path d="M8 16v-4M13 16V8M18 16v-7"/>',
+    trend: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+    target: '<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.6"/>',
+    coins: '<ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M15 11.5c3.3 0 6 1.3 6 3v3c0 1.7-2.7 3-6 3-2 0-3.8-.5-4.9-1.3"/>',
+    dollar: '<circle cx="12" cy="12" r="9.5"/><path d="M15 9.4c0-1.3-1.3-2.4-3-2.4s-3 1-3 2.3c0 3.1 6 1.7 6 4.9 0 1.4-1.3 2.4-3 2.4s-3-1.1-3-2.5M12 5.5V7M12 17v1.5"/>',
+    percent: '<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>',
+    globe: '<circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/>',
+    users: '<circle cx="9" cy="8" r="4"/><path d="M2 21v-1a7 7 0 0 1 14 0v1"/><path d="M16 4.3a4 4 0 0 1 0 7.4M18.5 14.2A7 7 0 0 1 22 20v1"/>',
+    settings: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>',
+    tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.6"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    approve: '<circle cx="12" cy="12" r="9.5"/><path d="M8 12.3l2.8 2.8L16.5 9"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/>',
+    insight: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M8 13v-2M11 13V9M14 13v-3"/>',
+    megaphone: '<path d="M3 10v4h4l9 5V5L7 10z"/><path d="M19 9a4 4 0 0 1 0 6M7 14l1.5 6h3L10 15"/>',
+    shield: '<path d="M12 2.5l8 3v6c0 5-3.4 8.8-8 10.5-4.6-1.7-8-5.5-8-10.5v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    cloud: '<path d="M7 19a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 10a4.5 4.5 0 0 1-.5 9z"/>',
+    database: '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+    sparkles: '<path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+    message: '<path d="M21 12a8.5 8.5 0 0 1-12.5 7.5L3 21l1.5-5.5A8.5 8.5 0 1 1 21 12z"/>',
+    wallet: '<rect x="3" y="6" width="18" height="14" rx="2.5"/><path d="M3 10h13a2 2 0 0 1 2 2v0M16 15h2"/><path d="M5 6l10-3 1 3"/>',
+    bag: '<path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+    image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="15.5" cy="8.5" r="2"/><path d="M3 18l6-6 5 5 3-3 4 4"/>',
+    tv: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    phone: '<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+    laptop: '<rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-2-4H4z"/>',
+    calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    pin: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+    eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    clock: '<circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/>',
+    play: '<circle cx="12" cy="12" r="9.5"/><path d="M10 8.2l6 3.8-6 3.8z"/>',
+    code: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/>',
+    funnel: '<path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/>',
+    award: '<circle cx="12" cy="9" r="6"/><path d="M8.5 13.8L7 22l5-3 5 3-1.5-8.2"/>',
+    bulb: '<path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.5.4.8 1 .8 1.7v.5h6V16c0-.7.3-1.3.8-1.7A6.5 6.5 0 0 0 12 2.5z"/>',
+    layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+    rocket: '<path d="M12 15l-3-3c1.5-4.5 5-8 11-9-1 6-4.5 9.5-8 11z"/><path d="M9 12H5l2.5-3.5L11 8M12 15v4l3.5-2.5L16 13"/><path d="M6.5 16.5C5 17 4 19 4 20c1 0 3-1 3.5-2.5"/>',
+    briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+    handshake: '<path d="M2 11l4-4 4 2 2-1 4-1 6 4"/><path d="M22 11l-4 4M2 11l7 7c.8.8 2 .8 2.8 0l5.7-5.7M9 14l2 2M11 12l2.5 2.5M13.5 9.5L16 12"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    up: '<path d="M6 15l6-6 6 6"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/>',
+    link: '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>'
+  };
+  function iconSvg(name) {
+    var p = ICONS[name];
+    return p ? '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + p + '</svg>' : '';
+  }
+  var DECO_ITEMS = { corners: 2, arc: 2, ring: 1, dots: 2, blob: 5, frame: 3 };
+
+
+  /* UI strings follow <html lang>: es / pt / en (default) */
+  var LANG = (document.documentElement.getAttribute('lang') || 'en').slice(0, 2).toLowerCase();
+  var T = ({
+    en: { prev: 'Prev', next: 'Next', prevL: 'Previous slide', nextL: 'Next slide', go: 'Go to slide',
+      slide: function (i, n) { return 'Slide ' + i + ' of ' + n; },
+      tip: 'Navigate with <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or the buttons below' },
+    es: { prev: 'Ant.', next: 'Sig.', prevL: 'Diapositiva anterior', nextL: 'Diapositiva siguiente', go: 'Ir a la diapositiva',
+      slide: function (i, n) { return 'Diapositiva ' + i + ' de ' + n; },
+      tip: 'Navegá con <kbd>&larr;</kbd> <kbd>&rarr;</kbd> o con los botones de abajo' },
+    pt: { prev: 'Ant.', next: 'Próx.', prevL: 'Slide anterior', nextL: 'Próximo slide', go: 'Ir para o slide',
+      slide: function (i, n) { return 'Slide ' + i + ' de ' + n; },
+      tip: 'Navegue com <kbd>&larr;</kbd> <kbd>&rarr;</kbd> ou com os botões abaixo' }
+  })[LANG] || { prev: 'Prev', next: 'Next', prevL: 'Previous slide', nextL: 'Next slide', go: 'Go to slide',
+      slide: function (i, n) { return 'Slide ' + i + ' of ' + n; },
+      tip: 'Navigate with <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or the buttons below' };
+
+  function ready(fn) {
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', fn); }
+    else { fn(); }
+  }
+
+  ready(function init() {
+    var stage = document.getElementById('stage');
+    if (!stage) { return; }
+
+    var slides = Array.prototype.slice.call(stage.querySelectorAll('.slide'));
+    if (!slides.length) { return; }
+
+    var total = slides.length;
+    var idx = 0;
+    var params = new URLSearchParams(window.location.search);
+    var forcedMode = params.get('mode') || stage.getAttribute('data-mode') || 'auto';
+    var devMode = params.get('dev') === '1';
+    var flowWidth = parseInt(stage.getAttribute('data-flow-width'), 10) || 820;
+    var minScale = parseFloat(stage.getAttribute('data-min-scale')) || 0.46;
+    var label = stage.getAttribute('data-label') || document.title || '';
+    var mode = '';
+    var flowHandler = null;
+
+    /* ---------------------------------------------------------------- setup */
+
+    slides.forEach(function (s, i) {
+      if (!s.hasAttribute('aria-label')) {
+        s.setAttribute('aria-label', T.slide(i + 1, total));
+      }
+      s.id = s.id || 'slide-' + (i + 1);
+      s.setAttribute('aria-roledescription', 'slide');
+    });
+    slides[0].classList.add('active');
+
+    /* keyboard hint on the cover and closing */
+    slides.forEach(function (s) {
+      if (!s.classList.contains('cover') && !s.classList.contains('closing')) { return; }
+      if (s.querySelector('.kbd-tip')) { return; }
+      var tip = document.createElement('div');
+      tip.className = 'kbd-tip';
+      tip.innerHTML = T.tip;
+      s.insertBefore(tip, s.firstChild);
+    });
+
+    /* ---- themes: every slide ends up with an explicit data-theme ----
+       slide attribute > ?theme= preview > #stage default > light.
+       White first: dark is opt-in, per slide or per deck. */
+    function validTheme(t) { return t === 'dark' || t === 'light' ? t : ''; }
+    var deckTheme = validTheme(params.get('theme')) || validTheme(stage.getAttribute('data-theme')) || 'light';
+    var previewTheme = validTheme(params.get('theme'));
+    slides.forEach(function (s) {
+      var own = validTheme(s.getAttribute('data-theme'));
+      s.setAttribute('data-theme', previewTheme || own || deckTheme);
+    });
+    function syncTheme() {
+      document.documentElement.setAttribute('data-slide-theme', slides[idx].getAttribute('data-theme'));
+    }
+    function invertThemes() {
+      slides.forEach(function (s) {
+        s.setAttribute('data-theme', s.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+      syncTheme();
+    }
+
+    /* ---- header: client logo slot (left) and the Pipol · Powered by MIA lockup (right) ----
+       The lockup is the official artwork, never redrawn. Its colour version is
+       picked for contrast with what sits behind the header:
+         white ground (most slides, the cover's white strip) → colour version
+         Aqua band or a dark slide                          → white version
+       data-brand-tone="color|white|black" on #stage or a slide forces one.
+       data-brand: "powered" (default) · "badge" (Powered by MIA in a blue pill,
+       light grounds only) · "pipol" (Pipol logo alone).
+       The client slot shows data-client-logo; without it, a LOGO placeholder
+       the author replaces before sending. */
+    var stageBrandRaw = stage.getAttribute('data-brand') || 'powered';
+    var stageTone = stage.getAttribute('data-brand-tone') || '';
+    var clientName = stage.getAttribute('data-client') || '';
+    var clientLogo = stage.getAttribute('data-client-logo') || '';
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function normBrand(b) { return b === 'pipol' ? 'pipol' : b === 'badge' ? 'badge' : 'powered'; }
+    function clientSlot() {
+      if (clientLogo) { return '<span class="client-pill"><img src="' + esc(clientLogo) + '" alt="' + esc(clientName || 'Client logo') + '"></span>'; }
+      return '<span class="client-pill placeholder" title="Set data-client-logo on #stage"><span class="cp-q">?</span><span class="cp-ph"><b>LOGO</b><small>PLACEHOLDER</small></span></span>';
+    }
+    slides.forEach(function (s) {
+      if (s.hasAttribute('data-no-head') || s.hasAttribute('data-no-lockup') || s.querySelector('.pd-head')) { return; }
+      var own = s.getAttribute('data-brand');
+      var brand = normBrand(own || stageBrandRaw);
+      var ownTone = s.getAttribute('data-brand-tone') || stageTone;
+      var dark = s.getAttribute('data-theme') === 'dark';
+      var onAqua = s.classList.contains('band') || s.classList.contains('full-aqua');
+      /* auto: the stylesheet picks the version from the slide (and follows T / ?theme) */
+      var tone = (ownTone === 'color' || ownTone === 'white' || ownTone === 'black') ? ownTone : 'auto';
+      if (brand === 'badge' && (tone === 'white' || tone === 'black' || (tone === 'auto' && (dark || onAqua)))) { brand = 'powered'; }   /* the badge reads on white only */
+      var art = brand === 'pipol' ? PIPOL_MARK : brand === 'badge' ? PIPOL_BADGE : PIPOL_POWERED;
+      var head = document.createElement('div');
+      head.className = 'pd-head';
+      head.setAttribute('aria-hidden', 'true');
+      head.innerHTML = (s.hasAttribute('data-no-client') ? '' : clientSlot()) +
+        '<span class="brand-lockup ' + brand + ' tone-' + tone + '">' + art + '</span>';
+      s.insertBefore(head, s.firstChild);
+
+      /* decorations */
+      var deco = s.getAttribute('data-deco');
+      if (deco && DECO_ITEMS[deco] && !s.querySelector('.deco')) {
+        var d = document.createElement('div');
+        d.className = 'deco ' + deco;
+        d.setAttribute('aria-hidden', 'true');
+        d.innerHTML = new Array(DECO_ITEMS[deco] + 1).join('<i></i>');
+        s.insertBefore(d, s.firstChild);
+      }
+    });
+    slides.forEach(function (s) {
+      /* the isotipo: white, on the index panel and the closing panel */
+      if ((s.classList.contains('index') || s.classList.contains('closing')) && !s.querySelector('.iso')) {
+        s.insertAdjacentHTML('afterbegin', '<div class="deco iso-wrap" aria-hidden="true">' + PIPOL_ISO + '</div>');
+      }
+      Array.prototype.forEach.call(s.querySelectorAll('.split > .panel.iso-on'), function (p) {
+        if (!p.querySelector('.iso')) { p.insertAdjacentHTML('beforeend', PIPOL_ISO); }
+      });
+    });
+    /* icons, inline marks, hub cores */
+    Array.prototype.forEach.call(stage.querySelectorAll('i.ic[data-i]'), function (el) {
+      if (!el.firstChild) { el.innerHTML = iconSvg(el.getAttribute('data-i')); }
+    });
+    Array.prototype.forEach.call(stage.querySelectorAll('.mark[data-mark]'), function (el) {
+      if (!el.firstChild) { el.innerHTML = el.getAttribute('data-mark') === 'mia' ? MIA_MARK : PIPOL_MARK; }
+    });
+    Array.prototype.forEach.call(stage.querySelectorAll('.hub-core'), function (el) {
+      if (!el.textContent.trim() && !el.firstElementChild) { el.innerHTML = '<span class="mark">' + PIPOL_MARK + '</span>'; }
+    });
+
+    /* ------------------------------------------------------------- chrome */
+
+    var bar = document.createElement('div');
+    bar.id = 'progress';
+    bar.style.width = (100 / total) + '%';
+
+    var chrome = document.createElement('div');
+    chrome.id = 'chrome';
+    chrome.innerHTML =
+            '<div id="dots" role="tablist" aria-label="' + T.go + '"></div>' +
+      '<div class="nav">' +
+        '<button id="pd-prev" type="button" aria-label="' + T.prevL + '">&lsaquo; ' + T.prev + '</button>' +
+        '<span id="counter" aria-live="polite">1 / ' + total + '</span>' +
+        '<button id="pd-next" type="button" aria-label="' + T.nextL + '">' + T.next + ' &rsaquo;</button>' +
+      '</div>';
+    chrome.setAttribute('aria-label', label);
+
+    stage.appendChild(bar);
+    stage.appendChild(chrome);
+
+    var prevBtn = chrome.querySelector('#pd-prev');
+    var nextBtn = chrome.querySelector('#pd-next');
+    var counter = chrome.querySelector('#counter');
+    var dotsBox = chrome.querySelector('#dots');
+
+    var dots = slides.map(function (s, i) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'dot';
+      d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', T.slide(i + 1, total));
+      d.addEventListener('click', function () { go(i); });
+      dotsBox.appendChild(d);
+      return d;
+    });
+
+    /* ---------------------------------------------------------- navigation */
+
+    function pauseMediaIn(el) {
+      Array.prototype.forEach.call(el.querySelectorAll('video, audio'), function (v) {
+        if (!v.paused) { v.pause(); }
+      });
+    }
+
+    function go(n, opts) {
+      opts = opts || {};
+      if (n < 0 || n > total - 1) { return; }
+      if (mode === 'flow') {
+        setActive(n);
+        if (!opts.silent) { slides[n].scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        return;
+      }
+      if (n === idx) { return; }
+      pauseMediaIn(slides[idx]);          /* don't leave audio playing behind you */
+      slides[idx].classList.remove('active');
+      setActive(n);
+    }
+
+    function setActive(n) {
+      if (n === idx && slides[n].classList.contains('active')) { render(); return; }
+      slides.forEach(function (s, i) { s.classList.toggle('active', i === n); });
+      idx = n;
+      render();
+      if (history.replaceState) {
+        history.replaceState(null, '', '#' + (idx + 1));
+      }
+      stage.dispatchEvent(new CustomEvent('pipol:slidechange', {
+        bubbles: true,
+        detail: { index: idx, number: idx + 1, total: total, slide: slides[idx], mode: mode }
+      }));
+    }
+
+    function render() {
+      syncTheme();
+      counter.textContent = (idx + 1) + ' / ' + total;
+      prevBtn.disabled = (idx === 0);
+      nextBtn.disabled = (idx === total - 1);
+      bar.style.width = (((idx + 1) / total) * 100) + '%';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('on', i === idx);
+        d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+    }
+
+    function next() { go(idx + 1); }
+    function prev() { go(idx - 1); }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    /* ---- keyboard ----
+       No click-to-advance anywhere: a click on a video, link or button does
+       only what that control does. Navigation is buttons, dots, keys, swipe. */
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) { return; }
+
+      var t = e.target;
+      var tag = (t && t.tagName) ? t.tagName.toUpperCase() : '';
+      var isControl = tag === 'VIDEO' || tag === 'AUDIO' || tag === 'A' ||
+                      tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' ||
+                      (t && t.isContentEditable);
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'PageDown':
+          e.preventDefault(); next(); break;
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault(); prev(); break;
+        case 'ArrowDown':
+          if (isControl || mode === 'flow') { return; }   /* let video seek / page scroll work */
+          e.preventDefault(); next(); break;
+        case 'ArrowUp':
+          if (isControl || mode === 'flow') { return; }
+          e.preventDefault(); prev(); break;
+        case ' ':
+        case 'Spacebar':
+          /* space toggles play on a focused video — only advance otherwise */
+          if (isControl || tag === 'BUTTON' || mode === 'flow') { return; }
+          e.preventDefault(); next(); break;
+        case 'Home':
+          e.preventDefault(); go(0); break;
+        case 'End':
+          e.preventDefault(); go(total - 1); break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          if (document.fullscreenElement) { document.exitFullscreen(); }
+          else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+          break;
+        case 't':
+        case 'T':
+          e.preventDefault(); invertThemes(); break;
+        case 'n':
+        case 'N':
+          e.preventDefault();
+          document.documentElement.setAttribute('data-notes',
+            document.documentElement.getAttribute('data-notes') === 'on' ? 'off' : 'on');
+          break;
+        default:
+          if (/^[1-9]$/.test(e.key)) { e.preventDefault(); go(parseInt(e.key, 10) - 1); }
+          else if (e.key === '0') { e.preventDefault(); go(9); }
+      }
+    });
+
+    /* ---- touch: swipe to advance in stage mode; native scroll in flow ---- */
+    var tx = 0, ty = 0, tActive = false;
+    stage.addEventListener('touchstart', function (e) {
+      if (mode === 'flow' || e.touches.length !== 1) { tActive = false; return; }
+      tActive = true; tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (!tActive) { return; }
+      tActive = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - tx, dy = t.clientY - ty;
+      if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.6) { return; }
+      if (dx < 0) { next(); } else { prev(); }
+    }, { passive: true });
+
+    /* --------------------------------------------------- layout / scaling */
+
+    function pickMode() {
+      if (forcedMode === 'flow' || forcedMode === 'stage') { return forcedMode; }
+      var pad = 28;
+      var s = Math.min((window.innerWidth - pad) / STAGE_W, (window.innerHeight - pad) / STAGE_H);
+      /* a phone in portrait, a narrow window, or a stage too small to read */
+      return (window.innerWidth < flowWidth || s < minScale) ? 'flow' : 'stage';
+    }
+
+    function applyMode(nextMode) {
+      if (nextMode === mode) { return; }
+      mode = nextMode;
+      document.documentElement.setAttribute('data-mode', mode);
+
+      if (mode === 'flow') {
+        stage.style.transform = '';
+        watchFlow();
+      } else {
+        unwatchFlow();
+        slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+        fit();
+      }
+      stage.dispatchEvent(new CustomEvent('pipol:modechange', { bubbles: true, detail: { mode: mode } }));
+    }
+
+    function fit() {
+      if (mode !== 'stage') { return; }
+      var pad = 28;
+      var s = Math.min((window.innerWidth - pad) / STAGE_W, (window.innerHeight - pad) / STAGE_H);
+      stage.style.transform = 'scale(' + s + ')';
+    }
+
+    /* In flow mode the slide under the reading line drives counter, progress and
+       dots. Deliberately NOT an IntersectionObserver: a slide taller than the
+       viewport can never reach a ratio threshold, so the counter would stick on
+       the slide before it. Nearest-slide-above-the-line is correct at any height. */
+    function watchFlow() {
+      if (flowHandler) { return; }
+      var ticking = false;
+      flowHandler = function () {
+        if (ticking) { return; }
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          var line = window.innerHeight * 0.35;
+          var best = 0;
+          for (var i = 0; i < slides.length; i++) {
+            if (slides[i].getBoundingClientRect().top <= line) { best = i; } else { break; }
+          }
+          if (best === idx) { return; }
+          idx = best;
+          slides.forEach(function (s, j) { s.classList.toggle('active', j === best); });
+          render();
+          stage.dispatchEvent(new CustomEvent('pipol:slidechange', {
+            bubbles: true,
+            detail: { index: idx, number: idx + 1, total: total, slide: slides[idx], mode: mode }
+          }));
+        });
+      };
+      window.addEventListener('scroll', flowHandler, { passive: true });
+      flowHandler();
+    }
+
+    function unwatchFlow() {
+      if (!flowHandler) { return; }
+      window.removeEventListener('scroll', flowHandler);
+      flowHandler = null;
+    }
+
+    function onResize() { applyMode(pickMode()); fit(); if (devMode) { checkOverflow(); } }
+
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+
+    /* ------------------------------------------------------- print / PDF */
+
+    window.addEventListener('beforeprint', function () {
+      slides.forEach(function (s) { s.classList.add('active'); });
+      stage.style.transform = '';
+    });
+    window.addEventListener('afterprint', function () {
+      if (mode === 'stage') {
+        slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+        fit();
+      }
+    });
+
+    /* -------------------------------------------- dev: overflow detection */
+
+    function checkOverflow() {
+      slides.forEach(function (s, i) {
+        var was = s.classList.contains('active');
+        if (!was) { s.classList.add('active'); }
+        var over = s.scrollHeight - s.clientHeight;
+        if (!was) { s.classList.remove('active'); }
+        if (mode === 'stage' && over > 2) {
+          s.setAttribute('data-overflow', 'Slide ' + (i + 1) + ' overflows by ' + over + 'px');
+        } else {
+          s.removeAttribute('data-overflow');
+        }
+      });
+    }
+
+    /* --------------------------------------------------------------- boot */
+
+    applyMode(pickMode());
+
+    var fromHash = parseInt((window.location.hash || '').replace('#', ''), 10);
+    if (fromHash >= 1 && fromHash <= total) {
+      idx = 0;
+      go(fromHash - 1, { silent: mode === 'flow' });
+      if (mode === 'flow') {
+        window.requestAnimationFrame(function () { slides[fromHash - 1].scrollIntoView(); });
+      }
+    }
+    render();
+    if (devMode) { window.requestAnimationFrame(checkOverflow); }
+
+    /* re-fit once webfonts settle, so the first paint isn't measured on fallbacks */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { fit(); if (devMode) { checkOverflow(); } });
+    }
+
+    /* ------------------------------------------------------- public API */
+
+    window.pipolDeck = {
+      go: go,
+      next: next,
+      prev: prev,
+      current: function () { return idx; },
+      total: total,
+      slides: slides,
+      mode: function () { return mode; },
+      /* flip every slide light <-> dark (same as the T key) */
+      invertThemes: invertThemes,
+      /* run fn once the slide is visible and sized — for Chart.js / D3, which
+         measure to zero inside a display:none slide */
+      onSlide: function (n, fn) {
+        var done = false;
+        function maybe(i) {
+          if (done || i !== n - 1) { return; }
+          done = true;
+          fn(slides[n - 1]);
+        }
+        stage.addEventListener('pipol:slidechange', function (e) { maybe(e.detail.index); });
+        maybe(idx);
+      }
+    };
+  });
+})();
+
+</script>
+</body>
+</html>
